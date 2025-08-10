@@ -6,13 +6,20 @@ and if the candy amount is hidden from the player until they approach the house.
 
 extends Node2D
 
-var house : House = null
+@export var houses : Array[House] = []
+@export var houses_with_candy: int
+@export var stock_up_chance: float = STOCK_UP_CHANCE
+@export var extra_candy_chance: float = EXTRA_CANDY_CHANCE
 
-# Called when the node enters the scene tree for the first time.
+#consts
+const MAX_HOUSES_WITH_CANDY: int = 5       #the maximum amount of houses that can have candy.
+const STOCK_UP_CHANCE: float = 0.5
+const EXTRA_CANDY_CHANCE: float = 0.05		#5% chance for a house to have 20 pieces of candy
+
 func _ready() -> void:
-	pass # Replace with function body.
+	#get all of house manager's children nodes, which are the houses
+	houses.append_array(get_children())
+	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
