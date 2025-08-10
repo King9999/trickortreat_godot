@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://siohwbcnl08s"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="1_72e8b"]
+[ext_resource type="Script" uid="uid://xkal0eguum4q" path="res://Scripts/costume_ghost.gd" id="2_dyja4"]
+
+[node name="Ghost" instance=ExtResource("1_72e8b")]
+script = ExtResource("2_dyja4")
+costume_name = "Ghost"

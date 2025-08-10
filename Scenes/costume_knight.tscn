@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://rojba8fy4rsu"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="1_oxhh8"]
+[ext_resource type="Texture2D" uid="uid://bnmlrcugrog2u" path="res://Sprites/Costumes/Knight.png" id="2_523sj"]
+[ext_resource type="Script" uid="uid://bx558idp78e4h" path="res://Scripts/costume_knight.gd" id="2_tv4cp"]
+
+[node name="Knight" instance=ExtResource("1_oxhh8")]
+script = ExtResource("2_tv4cp")
+costume_name = "Knight"
+candy_drop_amount = 2
+move_speed = 120.0
+collecting_candy = true
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_523sj")
+
+[node name="Collison" parent="." index="1"]
+position = Vector2(0, 0)

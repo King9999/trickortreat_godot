@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dy622oifu2orq"]
+[gd_scene load_steps=7 format=3 uid="uid://dy622oifu2orq"]
 
 [ext_resource type="Script" uid="uid://3kx77sr1e4x1" path="res://Scripts/house.gd" id="1_3jr7h"]
 [ext_resource type="Texture2D" uid="uid://jhxmj5g1hwpb" path="res://Sprites/HouseOff.png" id="1_okrnj"]
@@ -12,22 +12,28 @@ font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0.85098, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqtyj"]
+size = Vector2(114, 88)
+
 [node name="House" type="Node2D"]
 script = ExtResource("1_3jr7h")
 
 [node name="House_LightsOff" type="Sprite2D" parent="."]
+z_index = 1
 texture = ExtResource("1_okrnj")
 
 [node name="House_LightsOn" type="Sprite2D" parent="."]
 visible = false
+z_index = 1
 texture = ExtResource("2_n87ef")
 
 [node name="Candy Pickup Area" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Candy Pickup Area"]
+[node name="Trigger" type="CollisionShape2D" parent="Candy Pickup Area"]
 position = Vector2(0, 75)
 scale = Vector2(1.09906, 1.09906)
 shape = SubResource("RectangleShape2D_3jr7h")
+debug_color = Color(0.733363, 0.266081, 0.441788, 0.419608)
 
 [node name="Candy Text" type="Label" parent="."]
 anchors_preset = 5
@@ -42,3 +48,9 @@ text = "00"
 label_settings = SubResource("LabelSettings_3jr7h")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HouseCollision" type="StaticBody2D" parent="."]
+
+[node name="House_CollisionBox" type="CollisionShape2D" parent="HouseCollision"]
+position = Vector2(0, 21)
+shape = SubResource("RectangleShape2D_iqtyj")

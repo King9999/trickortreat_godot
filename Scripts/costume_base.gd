@@ -5,7 +5,7 @@ Player controls. Can move in 8 directions, and execute a trick when it's availab
 extends CharacterBody2D
 class_name Costume
 
-signal on_hit(player: Costume)
+signal on_hit(player: Costume)				#player sprite will shake and flash when hit by a trick. The appropriate funcs will be called
 
 @export var costume_name: String
 @export var candy_amount: int
@@ -13,7 +13,7 @@ signal on_hit(player: Costume)
 @export var candy_taken: int = 1;           #how much candy the player gets from a house per tick
 var vx: float
 var vy: float
-@export var move_speed: float = 150        #scales vx and vy. Lower value = slower speed
+@export var move_speed: float = BASE_MOVE_SPEED        #scales vx and vy. Lower value = slower speed
 
 @export_category("Timers & Booleans")
 #@export var public float currentTime;                   //used to track when trick can be used again.
@@ -32,6 +32,7 @@ var trick_active: bool
 #consts  
 const MAX_CANDY: int = 999
 const INIT_CANDY_DROP_AMOUNT: int = 5
+const BASE_MOVE_SPEED: float = 150
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,7 +42,21 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+#overridable function that will be used in inherhited nodes.	
+func use_trick() -> void:
+	pass
+
+#TODO: Add this function in the candy script!	
+#func add_candy(amount: int):
+#	if candy_amount + amount <= MAX_CANDY:
+#		candy_amount += amount
 	
+func drop_candy(amount: int):
+	if candy_amount >= amount:
+		candy_amount -= amount
+
+#player movement TODO: Must change this so each player has seprate controls.	
 func _physics_process(delta: float) -> void:
 	velocity.x = 0		#velocity is built in to CharacterBody2D
 	velocity.y = 0
