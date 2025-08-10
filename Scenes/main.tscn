@@ -1,0 +1,113 @@
+[gd_scene load_steps=5 format=3 uid="uid://dub32hrwkr01h"]
+
+[ext_resource type="Texture2D" uid="uid://cn57fucuohft3" path="res://Sprites/Level.png" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://knvtqv5xju0a" path="res://Scripts/house_manager.gd" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://dy622oifu2orq" path="res://Scenes/house.tscn" id="2_bo1nx"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_bo1nx"]
+vertices = PackedVector2Array(475, -83, 475, -203, 502, -310, 502, 422, 474, 261, 474, 141, 307, 373, -494, 422, 171, 373, -221, 373, -357, 373, 339, -83, 338, 141, 147, 56, 147, -64, 338, 261, 307, 253, -357, 253, -494, 197, -365, 197, 275, -310, 339, -203, 275, -219, -165, -227, -165, -310, 139, -310, 139, -219, 11, -64, 0, -64, 11, 56, 0, 56, 171, 253, -221, 253, -365, 77, -494, 77, -494, -59, -373, -59, -136, 56, -373, -179, -494, -179, -494, -310, -301, -310, -301, -227, -136, -64)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 3, 7, 8), PackedInt32Array(9, 8, 7), PackedInt32Array(10, 9, 7), PackedInt32Array(11, 0, 5, 12, 13, 14), PackedInt32Array(4, 3, 6, 15), PackedInt32Array(15, 6, 16, 12), PackedInt32Array(17, 10, 7, 18, 19), PackedInt32Array(20, 2, 1, 21, 22), PackedInt32Array(23, 24, 25, 26, 27, 28), PackedInt32Array(27, 29, 30, 28), PackedInt32Array(13, 31, 8, 9, 32, 29), PackedInt32Array(33, 34, 35, 36, 37), PackedInt32Array(38, 39, 40, 41, 42), PackedInt32Array(26, 22, 21, 11, 14, 27), PackedInt32Array(23, 28, 43), PackedInt32Array(32, 17, 19, 33, 37, 30), PackedInt32Array(13, 12, 16, 31), PackedInt32Array(30, 29, 32), PackedInt32Array(42, 23, 43, 37, 36, 38)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-504, -320, 512, -320, 512, 432, -504, 432)])
+
+[node name="Main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jjgbg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Nav Mesh" type="NavigationRegion2D" parent="."]
+position = Vector2(-2, 3)
+navigation_polygon = SubResource("NavigationPolygon_bo1nx")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Nav Mesh"]
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(147, 0)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-165, -283)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-373, -115)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-365, 141)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-221, 317)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D7" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(307, 317)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D8" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(474, 205)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D9" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(475, -139)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D10" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(275, -275)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="House Manager" type="Node2D" parent="."]
+script = ExtResource("2_8gbba")
+
+[node name="House" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-67, 3)
+
+[node name="House2" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(80, 3)
+
+[node name="House3" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-232, -280)
+
+[node name="House4" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-440, -112)
+
+[node name="House5" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-432, 144)
+
+[node name="House6" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-288, 320)
+
+[node name="House7" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(208, -272)
+
+[node name="House8" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(408, -136)
+
+[node name="House9" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(408, 208)
+
+[node name="House10" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(240, 320)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdxcb48ykudp7"]
+
+[ext_resource type="Script" uid="uid://cca4ow8qbaxvd" path="res://Scripts/costume_base.gd" id="1_ll3ep"]
+
+[node name="CostumeBase" type="Node2D"]
+script = ExtResource("1_ll3ep")
