@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdxcb48ykudp7"]
+[gd_scene load_steps=4 format=3 uid="uid://bdxcb48ykudp7"]
 
-[ext_resource type="Script" uid="uid://cca4ow8qbaxvd" path="res://Scripts/costume_base.gd" id="1_ll3ep"]
+[ext_resource type="Texture2D" uid="uid://ca656t6mccsoa" path="res://Sprites/Costumes/Ghost.png" id="2_eai3y"]
+[ext_resource type="Script" uid="uid://bek7l5luwlgfu" path="res://Scripts/costume_base.gd" id="3_0je84"]
 
-[node name="CostumeBase" type="Node2D"]
-script = ExtResource("1_ll3ep")
+[sub_resource type="CircleShape2D" id="CircleShape2D_0je84"]
+
+[node name="CostumeBase" type="CharacterBody2D"]
+script = ExtResource("3_0je84")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eai3y")
+
+[node name="Collison" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+scale = Vector2(-1.72492, -1.72492)
+shape = SubResource("CircleShape2D_0je84")

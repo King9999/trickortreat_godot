@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dub32hrwkr01h"]
+[gd_scene load_steps=6 format=3 uid="uid://dub32hrwkr01h"]
 
 [ext_resource type="Texture2D" uid="uid://cn57fucuohft3" path="res://Sprites/Level.png" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://knvtqv5xju0a" path="res://Scripts/house_manager.gd" id="2_8gbba"]
 [ext_resource type="PackedScene" uid="uid://dy622oifu2orq" path="res://Scenes/house.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="4_jjvhh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bo1nx"]
 vertices = PackedVector2Array(475, -83, 475, -203, 502, -310, 502, 422, 474, 261, 474, 141, 307, 373, -494, 422, 171, 373, -221, 373, -357, 373, 339, -83, 338, 141, 147, 56, 147, -64, 338, 261, 307, 253, -357, 253, -494, 197, -365, 197, 275, -310, 339, -203, 275, -219, -165, -227, -165, -310, 139, -310, 139, -219, 11, -64, 0, -64, 11, 56, 0, 56, 171, 253, -221, 253, -365, 77, -494, 77, -494, -59, -373, -59, -136, 56, -373, -179, -494, -179, -494, -310, -301, -310, -301, -227, -136, -64)
@@ -11,7 +12,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-504, -320, 512, -320, 
 
 [node name="Main" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Level" type="Sprite2D" parent="."]
 texture = ExtResource("1_jjgbg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -111,3 +112,6 @@ position = Vector2(408, 208)
 
 [node name="House10" parent="House Manager" instance=ExtResource("2_bo1nx")]
 position = Vector2(240, 320)
+
+[node name="CostumeBase" parent="." instance=ExtResource("4_jjvhh")]
+position = Vector2(-255, 72)

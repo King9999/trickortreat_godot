@@ -1,17 +1,19 @@
 """
-This is the base script for all costumes in the game. It contains common actions across all costumes.
+Player controls. Can move in 8 directions, and execute a trick when it's available.
 
 """
-
-extends Node2D
+extends CharacterBody2D
 class_name Costume
+
+signal on_hit(player: Costume)
+
 @export var costume_name: String
 @export var candy_amount: int
 @export var candy_drop_amount: int = 5      # how much candy the player drops when hit. 5 is the default.
 @export var candy_taken: int = 1;           #how much candy the player gets from a house per tick
 var vx: float
 var vy: float
-@export var move_speed: float = 1.3        #scales vx and vy. Lower value = slower speed
+@export var move_speed: float = 150        #scales vx and vy. Lower value = slower speed
 
 @export_category("Timers & Booleans")
 #@export var public float currentTime;                   //used to track when trick can be used again.
@@ -27,6 +29,9 @@ var last_cooldown_time: float           	#time in seconds before trick is rechar
 @export var trick_cooldown: float           #cooldown of each trick.
 var trick_active: bool
 
+#consts  
+const MAX_CANDY: int = 999
+const INIT_CANDY_DROP_AMOUNT: int = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,3 +41,22 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+func _physics_process(delta: float) -> void:
+	velocity.x = 0		#velocity is built in to CharacterBody2D
+	velocity.y = 0
+	
+	#check for keyboard input
+	if Input.is_key_pressed(KEY_LEFT):
+		velocity.x -= move_speed
+	
+	if Input.is_key_pressed(KEY_RIGHT):
+		velocity.x += move_speed
+		
+	if Input.is_key_pressed(KEY_UP):
+		velocity.y -= move_speed
+		
+	if Input.is_key_pressed(KEY_DOWN):
+		velocity.y += move_speed
+	
+	move_and_slide()	#important func to update physics and movement. Must be called at the end of above code.
