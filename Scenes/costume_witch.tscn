@@ -1,12 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://4s36quwb0krr"]
+[gd_scene load_steps=7 format=3 uid="uid://4s36quwb0krr"]
 
 [ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="1_hqxtc"]
+[ext_resource type="Script" uid="uid://cxyb1atbi3yc3" path="res://Scripts/costume_witch.gd" id="2_488ld"]
 [ext_resource type="Texture2D" uid="uid://ylv2lvrxlh0b" path="res://Sprites/Costumes/Witch.png" id="2_abn3v"]
+[ext_resource type="Script" uid="uid://dehrhb5ulg0dp" path="res://Scripts/magic_shot.gd" id="4_xr7h6"]
+[ext_resource type="Texture2D" uid="uid://c2h5q6aik5ku2" path="res://Sprites/Magic.png" id="5_1pljp"]
 
-[node name="CostumeBase" instance=ExtResource("1_hqxtc")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_pespn"]
+
+[node name="Witch" instance=ExtResource("1_hqxtc")]
+script = ExtResource("2_488ld")
+costume_name = "Witch"
 
 [node name="Sprite_Costume" parent="." index="0"]
 texture = ExtResource("2_abn3v")
 
 [node name="Collison" parent="." index="1"]
 position = Vector2(0, 0)
+
+[node name="Magic Shot" type="Area2D" parent="." index="3"]
+script = ExtResource("4_xr7h6")
+
+[node name="Sprite - Magic" type="Sprite2D" parent="Magic Shot" index="0"]
+texture = ExtResource("5_1pljp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Magic Shot" index="1"]
+shape = SubResource("CircleShape2D_pespn")
+debug_color = Color(0.796156, 0.0969681, 0.409861, 0.42)
+
+[connection signal="body_entered" from="Magic Shot" to="Magic Shot" method="_on_body_entered"]

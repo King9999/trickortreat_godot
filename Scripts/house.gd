@@ -35,7 +35,6 @@ func _ready() -> void:
 	#house_sprite.texture = load(house_light_on)
 	can_stock_candy = true
 	candy_text.visible = false;		#by default, all lights are off so the text shouldn't be shown
-	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,9 +65,8 @@ func _process(delta: float) -> void:
 ## Called when a player enters the HouseCollision node. 
 func _on_candy_pickup_area_entered(player: Costume) -> void:
 	#print("{0} is in front of house {1}".format([player.costume_name, name]))
-
 	#player shouts "trick or treat" and then collects candy at a fixed rate
-	if candy_amount <= 0:
+	if candy_amount <= 0 or candy_being_collected:
 		return
 	
 	self.player = player
@@ -78,7 +76,7 @@ func _on_candy_pickup_area_entered(player: Costume) -> void:
 	player.call_trick_or_treat(false)
 	#TODO: player collects candy until they move away from house or house is empty
 	candy_being_collected = true;
-	print("{0} is collecting candy in front of house {1}".format([player.costume_name, name]))
+	#print("{0} is collecting candy in front of house {1}".format([player.costume_name, name]))
 
 #adds candy to house	
 func stock_up(amount: int):
