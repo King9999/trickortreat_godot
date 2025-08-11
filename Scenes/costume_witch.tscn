@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://4s36quwb0krr"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="1_hqxtc"]
+[ext_resource type="Texture2D" uid="uid://ylv2lvrxlh0b" path="res://Sprites/Costumes/Witch.png" id="2_abn3v"]
+
+[node name="CostumeBase" instance=ExtResource("1_hqxtc")]
+
+[node name="Sprite_Costume" parent="." index="0"]
+texture = ExtResource("2_abn3v")
+
+[node name="Collison" parent="." index="1"]
+position = Vector2(0, 0)

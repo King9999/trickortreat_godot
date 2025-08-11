@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkaywba7sevkf"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="1_vvpdn"]
+[ext_resource type="Texture2D" uid="uid://ykrtpm2tphvj" path="res://Sprites/Costumes/Princess.png" id="2_0rhwp"]
+[ext_resource type="Script" uid="uid://colahqsncmr02" path="res://Scripts/costume_princess.gd" id="2_d2q3r"]
+
+[node name="CostumeBase" instance=ExtResource("1_vvpdn")]
+script = ExtResource("2_d2q3r")
+
+[node name="Sprite_Costume" parent="." index="0"]
+texture = ExtResource("2_0rhwp")
+
+[node name="Collison" parent="." index="1"]
+position = Vector2(0, 0)

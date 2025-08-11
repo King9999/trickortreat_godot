@@ -5,7 +5,8 @@ cooldown for their trick is longer than most.
 extends Costume
 
 func _ready() -> void:
-	_set_default_candy_taken(1)
+	super._ready()				#calls the _ready() function from parent node.
+	#_set_default_candy_taken(1)
 	
 #TODO: add code for trick
 func _set_default_candy_taken(amount: int):

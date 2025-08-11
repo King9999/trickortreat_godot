@@ -11,7 +11,7 @@ candy_drop_amount = 2
 move_speed = 120.0
 collecting_candy = true
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite_Costume" parent="." index="0"]
 texture = ExtResource("2_523sj")
 
 [node name="Collison" parent="." index="1"]

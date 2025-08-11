@@ -60,19 +60,10 @@ func _process(delta: float) -> void:
 			candy_text.text = str(candy_amount)
 			
 			if candy_amount <= 0:
-				#time to restock
-				#last_restock_time = Time.get_unix_time_from_system()
-				#restock_time = randi_range(MIN_RESTOCK_TIME * 2, MAX_RESTOCK_TIME * 2)    #restock takes longer during a game
-				#can_stock_candy = false
-				#candy_being_collected = false
-
-				#lights out!
-				#house_sprite.texture = load(house_light_off)
-				#TODO: update house manager to have 1 less house with candy.
+				#house emits a signal that house manager picks up to turn off lights.
 				on_house_empty.emit(self)
-				#print("{0} has no more candy!".format([name]))
 
-
+## Called when a player enters the HouseCollision node. 
 func _on_candy_pickup_area_entered(player: Costume) -> void:
 	#print("{0} is in front of house {1}".format([player.costume_name, name]))
 
@@ -82,7 +73,9 @@ func _on_candy_pickup_area_entered(player: Costume) -> void:
 	
 	self.player = player
 	#TODO: display "trick or treat for half a second
-	await get_tree().create_timer(0.5).timeout
+	player.call_trick_or_treat(true)
+	await get_tree().create_timer(0.8).timeout
+	player.call_trick_or_treat(false)
 	#TODO: player collects candy until they move away from house or house is empty
 	candy_being_collected = true;
 	print("{0} is collecting candy in front of house {1}".format([player.costume_name, name]))

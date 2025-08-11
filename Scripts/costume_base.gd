@@ -30,6 +30,8 @@ var last_cooldown_time: float           	#time in seconds before trick is rechar
 @export var trick_cooldown: float           #cooldown of each trick.
 var trick_active: bool
 
+@onready var trick_or_treat_sprite: Sprite2D = $"Sprite_Trick Or Treat Bubble"
+
 #consts  
 const MAX_CANDY: int = 999
 const INIT_CANDY_DROP_AMOUNT: int = 5
@@ -37,7 +39,9 @@ const BASE_MOVE_SPEED: float = 150
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	trick_or_treat_sprite.visible = false
+	set_default_candy_taken(1)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,8 +60,13 @@ func drop_candy(amount: int):
 	if candy_amount >= amount:
 		candy_amount -= amount
 
-func _set_default_candy_taken(amount: int):
-	pass
+func set_default_candy_taken(amount: int):
+	default_candy_taken = amount
+	candy_taken = default_candy_taken
+
+## Used when a player approaches a house to collect candy.	
+func call_trick_or_treat(toggle: bool):
+	trick_or_treat_sprite.visible = toggle
 
 #player movement TODO: Must change this so each player has seprate controls.	
 func _physics_process(delta: float) -> void:
