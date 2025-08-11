@@ -4,4 +4,10 @@ cooldown for their trick is longer than most.
 """
 extends Costume
 
+func _ready() -> void:
+	_set_default_candy_taken(1)
+	
 #TODO: add code for trick
+func _set_default_candy_taken(amount: int):
+	default_candy_taken = amount
+	candy_taken = default_candy_taken

@@ -27,12 +27,14 @@ var last_candy_pickup_time : float
 const MAX_CANDY_AMOUNT: int = 10;
 const MIN_RESTOCK_TIME: int = 5;
 const MAX_RESTOCK_TIME: int = 10;
-const CANDY_PICKUP_RATE: float = 0.5   #time in seconds that player acquires candy from a house.
+const CANDY_PICKUP_RATE: float = 0.8   #time in seconds that player acquires candy from a house.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#candy_text.text = "11"
 	#house_sprite.texture = load(house_light_on)
+	can_stock_candy = true
+	candy_text.visible = false;		#by default, all lights are off so the text shouldn't be shown
 	pass
 
 
@@ -51,6 +53,8 @@ func _process(delta: float) -> void:
 			
 			player.candy_amount += player.candy_taken
 			candy_amount -= player.candy_taken
+			#print("{0} gained candy from {1}".format([player.costume_name, name]))
+			#print("{0} has {1} candy left".format([name, candy_amount]))
 			
 			#update label
 			candy_text.text = str(candy_amount)
@@ -66,10 +70,11 @@ func _process(delta: float) -> void:
 				#house_sprite.texture = load(house_light_off)
 				#TODO: update house manager to have 1 less house with candy.
 				on_house_empty.emit(self)
+				#print("{0} has no more candy!".format([name]))
 
 
 func _on_candy_pickup_area_entered(player: Costume) -> void:
-	print("{0} is in front of house {1}".format([player.costume_name, name]))
+	#print("{0} is in front of house {1}".format([player.costume_name, name]))
 
 	#player shouts "trick or treat" and then collects candy at a fixed rate
 	if candy_amount <= 0:
@@ -80,16 +85,20 @@ func _on_candy_pickup_area_entered(player: Costume) -> void:
 	await get_tree().create_timer(0.5).timeout
 	#TODO: player collects candy until they move away from house or house is empty
 	candy_being_collected = true;
+	print("{0} is collecting candy in front of house {1}".format([player.costume_name, name]))
 
 #adds candy to house	
 func stock_up(amount: int):
 	candy_amount = amount
+	candy_text.text = str(candy_amount)
 
 func lights_on():
 	house_sprite.texture = load(house_light_on)
+	candy_text.visible = true;
 	
 func lights_off():
 	house_sprite.texture = load(house_light_off)
+	candy_text.visible = false;
 	
 
 func _on_candy_pickup_area_exited(player: Costume) -> void:

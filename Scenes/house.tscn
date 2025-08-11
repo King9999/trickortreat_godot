@@ -15,6 +15,7 @@ outline_color = Color(0, 0, 0.85098, 1)
 size = Vector2(114, 88)
 
 [node name="House" type="Node2D"]
+z_index = 1
 script = ExtResource("1_3jr7h")
 
 [node name="House_Light" type="Sprite2D" parent="."]

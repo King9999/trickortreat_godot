@@ -37,6 +37,9 @@ func _process(delta: float) -> void:
 		if houses_with_candy >= MAX_HOUSES_WITH_CANDY:
 			continue
 		
+		#houses don't immediately stock up in the beginning and during the game	
+		await get_tree().create_timer(1).timeout 
+		
 		if house.can_stock_candy && house.candy_amount <= 0:
 			#roll for a chance to stock house
 			if randf() <= STOCK_UP_CHANCE:		#randf() returns 0 to 1 inclusive
@@ -57,5 +60,5 @@ func _turn_off_lights(house: House):
 	house.candy_being_collected = false
 	#house.house_sprite.texture = load(house.house_light_off)
 	house.lights_off()
-	print("{0}'s lights are now off.".format([house.name]))
+	#print("{0}'s lights are now off.".format([house.name]))
 	houses_with_candy -= 1

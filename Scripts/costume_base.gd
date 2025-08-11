@@ -37,8 +37,7 @@ const BASE_MOVE_SPEED: float = 150
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	candy_taken = default_candy_taken
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,6 +55,9 @@ func use_trick() -> void:
 func drop_candy(amount: int):
 	if candy_amount >= amount:
 		candy_amount -= amount
+
+func _set_default_candy_taken(amount: int):
+	pass
 
 #player movement TODO: Must change this so each player has seprate controls.	
 func _physics_process(delta: float) -> void:
