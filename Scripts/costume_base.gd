@@ -11,6 +11,7 @@ signal on_hit(player: Costume)				#player sprite will shake and flash when hit b
 @export var candy_amount: int
 @export var candy_drop_amount: int = 5      # how much candy the player drops when hit. 5 is the default.
 @export var candy_taken: int = 1;           #how much candy the player gets from a house per tick
+@export var default_candy_taken: int		#the princess takes more candy
 var vx: float
 var vy: float
 @export var move_speed: float = BASE_MOVE_SPEED        #scales vx and vy. Lower value = slower speed
@@ -36,7 +37,7 @@ const BASE_MOVE_SPEED: float = 150
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	candy_taken = default_candy_taken
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

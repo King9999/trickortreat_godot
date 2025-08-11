@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dy622oifu2orq"]
+[gd_scene load_steps=6 format=3 uid="uid://dy622oifu2orq"]
 
 [ext_resource type="Script" uid="uid://3kx77sr1e4x1" path="res://Scripts/house.gd" id="1_3jr7h"]
 [ext_resource type="Texture2D" uid="uid://jhxmj5g1hwpb" path="res://Sprites/HouseOff.png" id="1_okrnj"]
-[ext_resource type="Texture2D" uid="uid://cdkm7vt0liump" path="res://Sprites/HouseOn.png" id="2_n87ef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3jr7h"]
 size = Vector2(31.8455, 18.1888)
@@ -18,14 +17,8 @@ size = Vector2(114, 88)
 [node name="House" type="Node2D"]
 script = ExtResource("1_3jr7h")
 
-[node name="House_LightsOff" type="Sprite2D" parent="."]
-z_index = 1
+[node name="House_Light" type="Sprite2D" parent="."]
 texture = ExtResource("1_okrnj")
-
-[node name="House_LightsOn" type="Sprite2D" parent="."]
-visible = false
-z_index = 1
-texture = ExtResource("2_n87ef")
 
 [node name="Candy Pickup Area" type="Area2D" parent="."]
 
@@ -54,3 +47,6 @@ vertical_alignment = 1
 [node name="House_CollisionBox" type="CollisionShape2D" parent="HouseCollision"]
 position = Vector2(0, 21)
 shape = SubResource("RectangleShape2D_iqtyj")
+
+[connection signal="body_entered" from="Candy Pickup Area" to="." method="_on_candy_pickup_area_entered"]
+[connection signal="body_exited" from="Candy Pickup Area" to="." method="_on_candy_pickup_area_exited"]
