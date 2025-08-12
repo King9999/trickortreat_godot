@@ -1,8 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://siohwbcnl08s"]
+[gd_scene load_steps=6 format=3 uid="uid://siohwbcnl08s"]
 
 [ext_resource type="PackedScene" uid="uid://bdxcb48ykudp7" path="res://Scenes/costume_base.tscn" id="1_72e8b"]
 [ext_resource type="Script" uid="uid://xkal0eguum4q" path="res://Scripts/costume_ghost.gd" id="2_dyja4"]
+[ext_resource type="Script" uid="uid://ddo3j6e2g173u" path="res://Scripts/boo.gd" id="3_c3r6t"]
+[ext_resource type="Texture2D" uid="uid://77jpsnah82k2" path="res://Sprites/scareAction_bubble.png" id="4_okhb3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tn2ea"]
 
 [node name="Ghost" instance=ExtResource("1_72e8b")]
 script = ExtResource("2_dyja4")
 costume_name = "Ghost"
+
+[node name="Boo" type="Area2D" parent="." index="3"]
+script = ExtResource("3_c3r6t")
+
+[node name="Boo Sprite" type="Sprite2D" parent="Boo" index="0"]
+texture = ExtResource("4_okhb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boo" index="1"]
+scale = Vector2(-3.60434, -2.51243)
+shape = SubResource("CircleShape2D_tn2ea")
+debug_color = Color(0.767865, 0.0591041, 0.15001, 0.419608)
+
+[connection signal="body_entered" from="Boo" to="Boo" method="_on_body_entered"]

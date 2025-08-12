@@ -57,8 +57,10 @@ func use_trick() -> void:
 #		candy_amount += amount
 	
 func drop_candy(amount: int):
-	if candy_amount >= amount:
-		candy_amount -= amount
+	#Can't drop more candy than player has
+	if candy_amount < amount:
+		amount = candy_amount
+	candy_amount -= amount
 
 func set_default_candy_taken(amount: int):
 	default_candy_taken = amount
