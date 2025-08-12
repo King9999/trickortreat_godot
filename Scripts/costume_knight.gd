@@ -12,9 +12,11 @@ func _ready() -> void:
 	candy_drop_amount = INIT_CANDY_DROP_AMOUNT - 3
 	sword_slash.enable_slash(false)
 
+
 func _set_default_candy_taken(amount: int):
 	default_candy_taken = amount
 	candy_taken = default_candy_taken
 
 func use_trick():
 	pass
+	

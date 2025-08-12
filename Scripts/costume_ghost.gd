@@ -9,7 +9,8 @@ func _ready() -> void:
 	super._ready()				#calls the _ready() function from parent node.
 	#_set_default_candy_taken(1)
 	boo_attack.enable_boo(false)
-	
+
+		
 #TODO: add code for trick
 func _set_default_candy_taken(amount: int):
 	default_candy_taken = amount

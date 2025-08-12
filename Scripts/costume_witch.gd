@@ -14,5 +14,6 @@ func _ready() -> void:
 	magic_shot.enable_magic_shot(false) 			#disables the node until it's ready to be used.
 	#use_trick()
 
+	
 func use_trick():
 	magic_shot.enable_magic_shot(true)

@@ -45,11 +45,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	#_move(delta)
 	pass
 
 #overridable function that will be used in inherhited nodes.	
 func use_trick() -> void:
 	pass
+	
+func _move(delta: float):
+	var input = Input.get_vector("Left", "Right", "Up", "Down")
+	global_position += input * delta * move_speed
+	
 
 #TODO: Add this function in the candy script!	
 #func add_candy(amount: int):
@@ -75,8 +81,11 @@ func _physics_process(delta: float) -> void:
 	velocity.x = 0		#velocity is built in to CharacterBody2D
 	velocity.y = 0
 	
+	var input = Input.get_vector("Left", "Right", "Up", "Down")
+	global_position += input * delta * move_speed
+	
 	#check for keyboard input
-	if Input.is_key_pressed(KEY_LEFT):
+	"""if Input.is_key_pressed(KEY_LEFT):
 		velocity.x -= move_speed
 	
 	if Input.is_key_pressed(KEY_RIGHT):
@@ -86,6 +95,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= move_speed
 		
 	if Input.is_key_pressed(KEY_DOWN):
-		velocity.y += move_speed
+		velocity.y += move_speed"""
 	
 	move_and_slide()	#important func to update physics and movement. Must be called at the end of above code.
