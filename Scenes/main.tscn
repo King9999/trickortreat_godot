@@ -129,5 +129,5 @@ position = Vector2(-272, 80)
 [node name="Princess" parent="." instance=ExtResource("7_344ge")]
 position = Vector2(-280, 8)
 
-[node name="CostumeBase" parent="." instance=ExtResource("8_ynf5e")]
-position = Vector2(-264, 216)
+[node name="Witch" parent="." instance=ExtResource("8_ynf5e")]
+position = Vector2(-264, 200)
