@@ -6,8 +6,10 @@ extends Node2D
 
 @onready var cursor_p1: Sprite2D = $"P1 Cursor"
 @onready var cursor_p2: Sprite2D = $"P2 Cursor"
-var input_p1: InputEvent
-var input_p2: InputEvent
+@onready var cursor_p1_ok: Label = $"P1 Cursor/P1 OK Label"
+@onready var cursor_p2_ok: Label = $"P2 Cursor/P2 OK Label"
+@export var player1_picked: bool
+@export var player2_picked: bool
 
 #player controls
 """const left_p1: String = "P1_Left"
@@ -40,41 +42,57 @@ var x_offset_cursor2: Vector2 = Vector2(20, 0)
 func _ready() -> void:
 	Singleton.costume_p1 = Singleton.Selection.GHOST
 	Singleton.costume_p2 = Singleton.Selection.KNIGHT
+	cursor_p1_ok.visible = false
+	cursor_p2_ok.visible = false
 
 
 func _process(delta: float) -> void:
 	#Player 1 controls
-	if Input.is_action_just_pressed(Singleton.left_p1):	#is_action_just_pressed executes action only once
-		#move P1 cursor left
-		if (Singleton.costume_p1 <= 0):
-			Singleton.costume_p1 = Singleton.Selection.size() - 1
-		else:
-			Singleton.costume_p1 -= 1		
-		print(Singleton.Selection.keys()[Singleton.costume_p1])
-	if Input.is_action_just_pressed(Singleton.right_p1):
-		if (Singleton.costume_p1 >= Singleton.Selection.size() - 1):
-			Singleton.costume_p1 = 0
-		else:
-			Singleton.costume_p1 += 1
-		print(Singleton.Selection.keys()[Singleton.costume_p1])
-	if Input.is_action_just_pressed(Singleton.confirm_p1):
-		print("P1 Selected {0}".format([Singleton.Selection.keys()[Singleton.costume_p1]]))
-	
-	#Player 2 controls
-	if Input.is_action_just_pressed(Singleton.left_p2):
-		if (Singleton.costume_p2 <= 0):
-			Singleton.costume_p2 = Singleton.Selection.size() - 1
-		else:
-			Singleton.costume_p2 -= 1
-		print("P2 Presed left")
-	if Input.is_action_just_pressed(Singleton.right_p2):
-		if (Singleton.costume_p2 >= Singleton.Selection.size() - 1):
-			Singleton.costume_p2 = 0
-		else:
-			Singleton.costume_p2 += 1
-		print("P2 Presed right")
-	if Input.is_action_just_pressed(Singleton.confirm_p2):
-		print("P2 Selected costume")
+	if !player1_picked:
+		if Input.is_action_just_pressed(Singleton.left_p1):	#is_action_just_pressed executes action only once
+			#move P1 cursor left
+			if (Singleton.costume_p1 <= 0):
+				Singleton.costume_p1 = Singleton.Selection.size() - 1
+			else:
+				Singleton.costume_p1 -= 1		
+			#print(Singleton.Selection.keys()[Singleton.costume_p1])
+		if Input.is_action_just_pressed(Singleton.right_p1):
+			if (Singleton.costume_p1 >= Singleton.Selection.size() - 1):
+				Singleton.costume_p1 = 0
+			else:
+				Singleton.costume_p1 += 1
+			#print(Singleton.Selection.keys()[Singleton.costume_p1])
+		if Input.is_action_just_pressed(Singleton.confirm_p1):
+			#player 1 cannot pick same costume as player 2
+			if player2_picked && Singleton.costume_p1 == Singleton.costume_p2:
+				return
+				
+			player1_picked = true
+			cursor_p1_ok.visible = true
+			#print("P1 Selected {0}".format([Singleton.Selection.keys()[Singleton.costume_p1]]))
+		
+		#Player 2 controls
+	if !player2_picked:
+		if Input.is_action_just_pressed(Singleton.left_p2):
+			if (Singleton.costume_p2 <= 0):
+				Singleton.costume_p2 = Singleton.Selection.size() - 1
+			else:
+				Singleton.costume_p2 -= 1
+			#print("P2 Presed left")
+		if Input.is_action_just_pressed(Singleton.right_p2):
+			if (Singleton.costume_p2 >= Singleton.Selection.size() - 1):
+				Singleton.costume_p2 = 0
+			else:
+				Singleton.costume_p2 += 1
+			#print("P2 Presed right")
+		if Input.is_action_just_pressed(Singleton.confirm_p2):
+			#player 2 cannot pick same costume as player 1
+			if player1_picked && Singleton.costume_p1 == Singleton.costume_p2:
+				return
+			
+			player2_picked = true
+			cursor_p2_ok.visible = true
+			#print("P2 Selected costume")
 	
 	#update cursor positions
 	match (Singleton.costume_p1):
@@ -101,3 +119,10 @@ func _process(delta: float) -> void:
 	if Singleton.costume_p1 == Singleton.costume_p2:
 		cursor_p1.global_position = cursor_p1.global_position + x_offset_cursor1
 		cursor_p2.global_position = cursor_p2.global_position + x_offset_cursor2
+		
+	#check if both players picked their costume, then move to main game scene
+	if _both_players_picked_costume():
+		get_tree().change_scene_to_file("res://Scenes/main.tscn")
+
+func _both_players_picked_costume():
+	return player1_picked && player2_picked

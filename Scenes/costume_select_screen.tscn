@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://4cxf6wo2kifx"]
+[gd_scene load_steps=14 format=3 uid="uid://4cxf6wo2kifx"]
 
 [ext_resource type="FontFile" uid="uid://dxcgk8flk1k3h" path="res://Fonts/KROEGER0665.TTF" id="1_beft7"]
 [ext_resource type="Texture2D" uid="uid://cuhruqax5kndg" path="res://Sprites/candy.png" id="2_07lp1"]
@@ -20,6 +20,9 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_f2t0y"]
 font = ExtResource("1_beft7")
 font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_2dufx"]
+font = ExtResource("1_beft7")
 
 [node name="Costume Select Screen" type="Control"]
 layout_mode = 3
@@ -255,6 +258,29 @@ script = ExtResource("7_2dufx")
 [node name="P1 Cursor" type="Sprite2D" parent="Input Manager"]
 texture = ExtResource("8_mm8bp")
 
+[node name="P1 OK Label" type="Label" parent="Input Manager/P1 Cursor"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_bottom = -17.0
+grow_horizontal = 2
+text = "OK!"
+label_settings = SubResource("LabelSettings_2dufx")
+
 [node name="P2 Cursor" type="Sprite2D" parent="Input Manager"]
 position = Vector2(232, 0)
 texture = ExtResource("9_yxyi2")
+
+[node name="P2 OK Label" type="Label" parent="Input Manager/P2 Cursor"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_top = -40.0
+offset_right = 4.0
+offset_bottom = -17.0
+grow_horizontal = 2
+text = "OK!"
+label_settings = SubResource("LabelSettings_2dufx")

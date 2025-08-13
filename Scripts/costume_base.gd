@@ -17,9 +17,8 @@ var vy: float
 @export var move_speed: float = BASE_MOVE_SPEED        #scales vx and vy. Lower value = slower speed
 
 @export_category("Timers & Booleans")
-#@export var public float currentTime;                   //used to track when trick can be used again.
-var last_invul_time: float             #timestamp to get current time
-@export var invul_duration: float = 1.5       #time in seconds. Determines how long player is invincible
+var last_invul_time: float             			#timestamp to get current time
+@export var invul_duration: float = 1.5       	#time in seconds. Determines how long player is invincible
 @export var invincible: bool
 var last_stun_time: float
 @export var stun_duration: float = 1          #time in seconds. Player can't move during this time
