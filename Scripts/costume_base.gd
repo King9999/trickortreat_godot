@@ -80,8 +80,8 @@ func _physics_process(delta: float) -> void:
 	velocity.x = 0		#velocity is built in to CharacterBody2D
 	velocity.y = 0
 	
-	var input = Input.get_vector("Left", "Right", "Up", "Down")
-	global_position += input * delta * move_speed
+	#var input = Input.get_vector("Left", "Right", "Up", "Down")
+	#global_position += input * delta * move_speed
 	
 	#check for keyboard input
 	"""if Input.is_key_pressed(KEY_LEFT):
