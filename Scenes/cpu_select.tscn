@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6u75l705phls"]
+
+[ext_resource type="FontFile" uid="uid://dxcgk8flk1k3h" path="res://Fonts/KROEGER0665.TTF" id="1_hek0k"]
+[ext_resource type="Texture2D" uid="uid://cuhruqax5kndg" path="res://Sprites/candy.png" id="2_1wlms"]
+[ext_resource type="Script" uid="uid://do7xscdr5dfus" path="res://Scripts/cpu_select_screen_input_manager.gd" id="2_6lil3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ragyt"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6lil3"]
+font = ExtResource("1_hek0k")
+font_size = 32
+
+[node name="CPU Select Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ragyt")
+
+[node name="Label_How Many Opponents" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_top = 240.0
+offset_right = 160.0
+offset_bottom = 263.0
+grow_horizontal = 2
+text = "HOW MANY CPU OPPONENTS?"
+label_settings = SubResource("LabelSettings_6lil3")
+
+[node name="Label_None" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_top = 352.0
+offset_right = 60.0
+offset_bottom = 396.0
+grow_horizontal = 2
+text = "NONE"
+label_settings = SubResource("LabelSettings_6lil3")
+
+[node name="Label_One Opponent" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_top = 424.0
+offset_right = 104.0
+offset_bottom = 468.0
+grow_horizontal = 2
+text = "1 OPPONENT"
+label_settings = SubResource("LabelSettings_6lil3")
+
+[node name="Label_Two Opponents" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_top = 496.0
+offset_right = 144.0
+offset_bottom = 540.0
+grow_horizontal = 2
+text = "2 OPPONENTS"
+label_settings = SubResource("LabelSettings_6lil3")
+
+[node name="CPU Select Screen Input Manager" type="Node2D" parent="."]
+script = ExtResource("2_6lil3")
+
+[node name="Cursor" type="Sprite2D" parent="CPU Select Screen Input Manager"]
+position = Vector2(304, 376)
+texture = ExtResource("2_1wlms")

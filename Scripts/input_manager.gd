@@ -122,7 +122,8 @@ func _process(delta: float) -> void:
 		
 	#check if both players picked their costume, then move to main game scene
 	if _both_players_picked_costume():
-		get_tree().change_scene_to_file("res://Scenes/main.tscn")
+		await get_tree().create_timer(0.8).timeout
+		get_tree().change_scene_to_file(Singleton.cpu_select_scene)
 
 func _both_players_picked_costume():
 	return player1_picked && player2_picked
