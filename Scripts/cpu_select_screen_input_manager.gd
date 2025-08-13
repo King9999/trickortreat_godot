@@ -8,11 +8,6 @@ extends Node2D
 enum Cpu_Opponents { NONE, ONE, TWO }
 var cpu_count: Cpu_Opponents 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(Singleton.down_p1):
@@ -26,7 +21,7 @@ func _process(delta: float) -> void:
 		if (cpu_count <= 0):
 			cpu_count = Cpu_Opponents.size() - 1
 		else:
-			cpu_count = 1		
+			cpu_count -= 1		
 		print(Cpu_Opponents.keys()[cpu_count])
 	
 	if (Input.is_action_just_pressed(Singleton.confirm_p1)):
