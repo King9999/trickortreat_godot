@@ -1,16 +1,19 @@
 extends Node2D
 
+class_name Game_Timer
+
 @export var time: float           	#time in seconds. Will use this value to get the minutes, seconds and milliseconds
 @export var init_time: float      	#the initial start time. Used to get time elapsed.
 @export var timer_running: bool
 @onready var time_label: RichTextLabel = $"Timer Label"
 
+#const INIT_TIME:float = 120
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	init_time = 120
-	time = init_time
-	set_timer(time * 0.1)
-	start_timer(true)
+	#set_timer(INIT_TIME)
+	#start_timer(true)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,16 +28,19 @@ func _process(delta: float) -> void:
 			time = 0
 			timer_running = false
 	
-		time_label.text = display_timer()
+		time_label.text = _display_timer()
 	
 func set_timer(seconds: float):
 	if (seconds < 0):
 		return
+		
+	init_time = seconds
 	time = seconds
+	time_label.text = _display_timer()
 
 ##Converts time to minutes, seconds and milliseconds.[br]
 ##Returns a formatted string.
-func display_timer() -> String:
+func _display_timer() -> String:
 	var minutes: float = time / 60
 	var seconds: float = fmod(time, 60)
 	var milliseconds: float = fmod(time, 1) * 100		#fmod must be used instead of % for floats
@@ -50,3 +56,6 @@ func start_timer(toggle: bool):
 
 func _time_running_out() -> bool:
 	return time < 11
+
+func get_elapsed_time():
+	return init_time - time
