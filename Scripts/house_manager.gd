@@ -15,6 +15,7 @@ extends Node2D
 const MAX_HOUSES_WITH_CANDY: int = 5       #the maximum amount of houses that can have candy.
 const STOCK_UP_CHANCE: float = 0.5
 const EXTRA_CANDY_CHANCE: float = 0.05		#5% chance for a house to have 20 pieces of candy
+const HIDDEN_CANDY_CHANCE: float = 0.2		#20% chance a house's candy is unknown
 const MAX_CANDY_AMOUNT: int = 10
 
 func _ready() -> void:
@@ -36,18 +37,24 @@ func _process(delta: float) -> void:
 		#check if this house can be stocked	
 		if houses_with_candy >= MAX_HOUSES_WITH_CANDY:
 			continue
-		
+			
 		#houses don't immediately stock up in the beginning and during the game	
-		await get_tree().create_timer(1).timeout 
+		await get_tree().create_timer(1).timeout
 		
 		if house.can_stock_candy && house.candy_amount <= 0:
 			#roll for a chance to stock house
-			if randf() <= STOCK_UP_CHANCE:		#randf() returns 0 to 1 inclusive
+			if randf() <= STOCK_UP_CHANCE:					#randf() returns 0 to 1 inclusive
 				#add candy. Check if this house gets extra candy
 				if randf() <= EXTRA_CANDY_CHANCE:
 					house.stock_up(MAX_CANDY_AMOUNT * 2)
 				else:
 					house.stock_up(randi_range(1, MAX_CANDY_AMOUNT))
+				
+				#does this house have an unknown amount of candy?
+				if randf() <= HIDDEN_CANDY_CHANCE:
+					house.candy_text.text = "??"
+				
+				#finished	
 				house.lights_on()
 				houses_with_candy += 1
 

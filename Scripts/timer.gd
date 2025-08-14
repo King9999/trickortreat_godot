@@ -3,22 +3,50 @@ extends Node2D
 @export var time: float           	#time in seconds. Will use this value to get the minutes, seconds and milliseconds
 @export var init_time: float      	#the initial start time. Used to get time elapsed.
 @export var timer_running: bool
+@onready var time_label: RichTextLabel = $"Timer Label"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	init_time = 120
+	time = init_time
+	set_timer(time * 0.1)
+	start_timer(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if timer_running:
+		time -= delta
+		
+		#Change text colour if time almost up
+		if _time_running_out():
+			time_label.add_theme_color_override("default_color", Color.RED)
+		
+		if time <= 0:
+			time = 0
+			timer_running = false
+	
+		time_label.text = display_timer()
+	
+func set_timer(seconds: float):
+	if (seconds < 0):
+		return
+	time = seconds
 
+##Converts time to minutes, seconds and milliseconds.[br]
+##Returns a formatted string.
 func display_timer() -> String:
-	var minutes: float = floorf(time / 60)
-	var seconds: float = floorf(time as int % 60)			#"as" keyword casts from 1 type to another
-	var milliseconds: float = time as int % 1 * 99
+	var minutes: float = time / 60
+	var seconds: float = fmod(time, 60)
+	var milliseconds: float = fmod(time, 1) * 100		#fmod must be used instead of % for floats
+	#print(milliseconds)
 	
 	#use format to display time with colons
-	var time_text: String = "{0:0}:{1:00}:{2:00}".format([minutes, seconds, milliseconds])
-	return time_text
-	
+	#% is a placeholder. 'd' is a decimal specifier, which will floor any values. The "02" is padding; the 0 says to insert extra space with a 0, and the 2 is the minimum length
+	#var time_text: String = "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+	return "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+
+func start_timer(toggle: bool):
+	timer_running = toggle
+
+func _time_running_out() -> bool:
+	return time < 11
