@@ -25,6 +25,7 @@ spacing_glyph = 10
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fdnlq")
+game_time = 120
 
 [node name="Level" type="Sprite2D" parent="."]
 texture = ExtResource("1_jjgbg")
@@ -187,3 +188,19 @@ text = "GO!"
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Player 1 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(-263, -128)
+
+[node name="Player 2 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(240, 144)
+
+[node name="Player 3 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(-232, 143)
+
+[node name="Player 4 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(232, -128)

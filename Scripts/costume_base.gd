@@ -31,6 +31,9 @@ var trick_active: bool
 
 @onready var trick_or_treat_sprite: Sprite2D = $"Sprite_Trick Or Treat Bubble"
 
+enum Player { HUMAN, CPU }
+@export var player_type: Player
+
 #consts  
 const MAX_CANDY: int = 999
 const INIT_CANDY_DROP_AMOUNT: int = 5

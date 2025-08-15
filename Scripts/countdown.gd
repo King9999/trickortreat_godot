@@ -5,6 +5,7 @@ Timer that ticks down to 0 before the game can start
 extends Node2D
 
 class_name Countdown
+signal start_game() 		#when countdown reaches 0, game manager picks up signal to start game
 
 @onready var countdown_label: RichTextLabel = $"Countdown Label"
 @export var countdown_time: float
@@ -14,7 +15,7 @@ var counting_down: bool
 func _ready() -> void:
 	#set_countdown_time(4)
 	#await get_tree().create_timer(1).timeout
-	pass
+	countdown_label.text = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,6 +25,7 @@ func _process(delta: float) -> void:
 			countdown_label.text = "%d" % countdown_time
 		else:
 			countdown_label.text = "GO!"
+			start_game.emit()
 			await get_tree().create_timer(1).timeout
 			visible = false							#hide self
 			set_process(false)

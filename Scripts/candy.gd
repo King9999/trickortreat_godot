@@ -1,5 +1,6 @@
 extends Area2D
 
+class_name Candy
 
 func _on_body_entered(player: Costume) -> void:
 	player.candy_amount += 1
