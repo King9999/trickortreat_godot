@@ -34,7 +34,7 @@ func get_random_opponent():
 	#get a random opponent
 	var rand_opponent = randi() % cpu_costumes.size()
 	rand_cpu_costume = cpu_costumes[rand_opponent]
-
+	
 #gets remaining costumes for CPUs
 func get_cpu_opponents():
 	for costume in Selection.values():
