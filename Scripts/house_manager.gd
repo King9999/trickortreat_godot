@@ -35,13 +35,13 @@ func _process(delta: float) -> void:
 			house.can_stock_candy = true
 		
 		#check if this house can be stocked	
-		if houses_with_candy >= MAX_HOUSES_WITH_CANDY:
-			continue
+		#if houses_with_candy >= MAX_HOUSES_WITH_CANDY:
+			#continue
 			
 		#houses don't immediately stock up in the beginning and during the game	
 		await get_tree().create_timer(1).timeout
 		
-		if house.can_stock_candy && house.candy_amount <= 0:
+		if  houses_with_candy < MAX_HOUSES_WITH_CANDY && house.can_stock_candy && house.candy_amount <= 0:
 			#roll for a chance to stock house
 			if randf() <= STOCK_UP_CHANCE:					#randf() returns 0 to 1 inclusive
 				#add candy. Check if this house gets extra candy

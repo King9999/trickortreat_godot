@@ -3,6 +3,7 @@ Handles all of the gameplay, including setting up the players, starting the game
 """
 
 extends Node2D
+class_name GameManager
 
 @onready var timer: Game_Timer = $Timer
 @onready var countdown: Countdown = $Countdown
@@ -17,6 +18,12 @@ extends Node2D
 @export var game_time: int							#time in seconds. default 2 minutes
 var game_started: bool
 
+#costumes
+@export var costume_scenes: Array[PackedScene] = []
+@export var players: Array[Costume] = []
+
+enum Human_Player { PLAYER_ONE, PLAYER_TWO }
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Timer setup
@@ -26,8 +33,8 @@ func _ready() -> void:
 	
 	######player setup######
 	#set up the first 2 players
-	
-	
+	_set_up_players(Singleton.costume_p1)
+	_set_up_players(Singleton.costume_p2)	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -42,3 +49,34 @@ func _start_game():
 	game_started = true
 	timer.start_timer(true)
 	countdown.start_game.disconnect(_start_game)	#prevents code from running more than once
+
+##Adds human-controlled 
+func _set_up_players(selection: Singleton.Selection):
+	match(selection):
+		Singleton.Selection.GHOST:
+			players.append(costume_scenes[Singleton.Selection.GHOST].instantiate())
+		Singleton.Selection.KNIGHT:
+			players.append(costume_scenes[Singleton.Selection.KNIGHT].instantiate())
+		Singleton.Selection.PRINCESS:
+			players.append(costume_scenes[Singleton.Selection.PRINCESS].instantiate())
+		Singleton.Selection.WITCH:
+			players.append(costume_scenes[Singleton.Selection.WITCH].instantiate())			
+	
+	#ensure the player is human-controlled.
+	var player: Costume = players[players.size() - 1]
+	player.player_type = Costume.Player.HUMAN
+	
+	#set position
+	player.global_position = player_position1.global_position if players.size() <= 1 else player_position2.global_position		
+	add_child(player) #important step when instantiating nodes.
+
+func _physics_process(delta: float) -> void:
+	var input_p1 = Input.get_vector(Singleton.left_p1, Singleton.right_p1, Singleton.up_p1, Singleton.down_p1)
+	var input_p2 = Input.get_vector(Singleton.left_p2, Singleton.right_p2, Singleton.up_p2, Singleton.down_p2)
+	
+	
+	players[Human_Player.PLAYER_ONE].global_position += input_p1 * delta * players[Human_Player.PLAYER_ONE].move_speed
+	players[Human_Player.PLAYER_TWO].global_position += input_p2 * delta * players[Human_Player.PLAYER_TWO].move_speed
+	
+	players[Human_Player.PLAYER_ONE].move_and_slide()
+	players[Human_Player.PLAYER_TWO].move_and_slide()
