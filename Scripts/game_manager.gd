@@ -56,6 +56,7 @@ func _start_game():
 	game_started = true
 	timer.start_timer(true)
 	countdown.start_game.disconnect(_start_game)	#prevents code from running more than once
+	
 
 ##Adds human-controlled 
 func _set_up_players(selection: Singleton.Selection):
@@ -103,3 +104,6 @@ func _physics_process(delta: float) -> void:
 		
 		players[Human_Player.PLAYER_ONE].move_and_slide()
 		players[Human_Player.PLAYER_TWO].move_and_slide()
+
+func player_count():
+	return players.size()
