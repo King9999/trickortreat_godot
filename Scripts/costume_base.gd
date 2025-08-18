@@ -34,6 +34,8 @@ var trick_active: bool
 enum Player { HUMAN, CPU }
 @export var player_type: Player
 
+enum CostumeType { GHOST, KNIGHT, PRINCESS, WITCH }   #used for identifying & extracting parameters in parameters.json
+
 #consts  
 const MAX_CANDY: int = 999
 const INIT_CANDY_DROP_AMOUNT: int = 5
@@ -42,7 +44,7 @@ const BASE_MOVE_SPEED: float = 150
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	trick_or_treat_sprite.visible = false
-	set_default_candy_taken(1)
+	#set_default_candy_taken(1)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,6 +79,16 @@ func set_default_candy_taken(amount: int):
 ## Used when a player approaches a house to collect candy.	
 func call_trick_or_treat(toggle: bool):
 	trick_or_treat_sprite.visible = toggle
+
+##Applies parameters from JSON file	
+func set_up_parameters(costume: CostumeType):
+	costume_name = Singleton.json_param[costume].costume_name
+	candy_drop_amount = Singleton.json_param[costume].candy_drop_amount
+	candy_taken = Singleton.json_param[costume].candy_taken
+	move_speed = Singleton.json_param[costume].move_speed
+	trick_cooldown = Singleton.json_param[costume].trick_cooldown
+	trick_duration = Singleton.json_param[costume].trick_duration
+	set_default_candy_taken(candy_taken)
 
 #player movement TODO: Must change this so each player has seprate controls.	
 func _physics_process(delta: float) -> void:

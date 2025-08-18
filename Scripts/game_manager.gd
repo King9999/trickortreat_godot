@@ -93,17 +93,14 @@ func _set_up_players(selection: Singleton.Selection):
 func _set_up_cpu_players():
 	pass
 
+#reads input from keyboard/controller
 func _physics_process(delta: float) -> void:
 	if game_started:
 		var input_p1 = Input.get_vector(Singleton.left_p1, Singleton.right_p1, Singleton.up_p1, Singleton.down_p1)
 		var input_p2 = Input.get_vector(Singleton.left_p2, Singleton.right_p2, Singleton.up_p2, Singleton.down_p2)
-		
 		
 		players[Human_Player.PLAYER_ONE].global_position += input_p1 * delta * players[Human_Player.PLAYER_ONE].move_speed
 		players[Human_Player.PLAYER_TWO].global_position += input_p2 * delta * players[Human_Player.PLAYER_TWO].move_speed
 		
 		players[Human_Player.PLAYER_ONE].move_and_slide()
 		players[Human_Player.PLAYER_TWO].move_and_slide()
-
-func player_count():
-	return players.size()

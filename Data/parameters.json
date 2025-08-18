@@ -1,0 +1,34 @@
+[
+  {
+	"costume_name": "Ghost",
+	"candy_taken": 1,
+	"candy_drop_amount": 5,
+	"trick_duration": 1,
+	"trick_cooldown": 8,
+	"move_speed": 150
+  },
+  {
+	"costume_name": "Knight",
+	"candy_taken": 1,
+	"candy_drop_amount": 2,
+	"trick_duration": 0.5,
+	"trick_cooldown": 1,
+	"move_speed": 120
+  },
+  {
+	"costume_name": "Princess",
+	"candy_taken": 2,
+	"candy_drop_amount": 5,
+	"trick_duration": 2,
+	"trick_cooldown": 1,
+	"move_speed": 165
+  },
+  {
+	"costume_name": "Witch",
+	"candy_taken": 1,
+	"candy_drop_amount": 5,
+	"trick_duration": 0,
+	"trick_cooldown": 5,
+	"move_speed": 135
+  }
+]

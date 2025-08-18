@@ -215,10 +215,10 @@ theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "TRICK OK!"
 
 [node name="P1 Candy Amount" type="RichTextLabel" parent="HUD/Player 1 HUD"]
-offset_left = 64.0
-offset_top = 24.0
-offset_right = 129.0
-offset_bottom = 48.0
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
 theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "x 00"
 
@@ -228,7 +228,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("14_h1bgf")
 
 [node name="P1 Candy Icon" type="Sprite2D" parent="HUD/Player 1 HUD"]
-position = Vector2(48, 32)
+position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P1 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 1 HUD"]
@@ -256,10 +256,10 @@ theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "TRICK OK!"
 
 [node name="P2 Candy Amount" type="RichTextLabel" parent="HUD/Player 2 HUD"]
-offset_left = 64.0
-offset_top = 24.0
-offset_right = 129.0
-offset_bottom = 48.0
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
 theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "x 00"
 
@@ -269,7 +269,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("14_h1bgf")
 
 [node name="P2 Candy Icon" type="Sprite2D" parent="HUD/Player 2 HUD"]
-position = Vector2(48, 32)
+position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P2 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 2 HUD"]
@@ -297,10 +297,10 @@ theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "TRICK OK!"
 
 [node name="P3 Candy Amount" type="RichTextLabel" parent="HUD/Player 3 HUD"]
-offset_left = 64.0
-offset_top = 24.0
-offset_right = 129.0
-offset_bottom = 48.0
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
 theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "x 00"
 
@@ -310,7 +310,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("14_h1bgf")
 
 [node name="P3 Candy Icon" type="Sprite2D" parent="HUD/Player 3 HUD"]
-position = Vector2(48, 32)
+position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P3 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 3 HUD"]
@@ -338,10 +338,10 @@ theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "TRICK OK!"
 
 [node name="P4 Candy Amount" type="RichTextLabel" parent="HUD/Player 4 HUD"]
-offset_left = 64.0
-offset_top = 24.0
-offset_right = 129.0
-offset_bottom = 48.0
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
 theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "x 00"
 
@@ -351,7 +351,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("14_h1bgf")
 
 [node name="P4 Candy Icon" type="Sprite2D" parent="HUD/Player 4 HUD"]
-position = Vector2(48, 32)
+position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P4 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 4 HUD"]

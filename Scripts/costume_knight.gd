@@ -7,9 +7,8 @@ extends Costume
 
 func _ready() -> void:
 	super._ready()			#calls the _ready() function from parent node.
-	#_set_default_candy_taken(2)
-	move_speed = BASE_MOVE_SPEED - 30
-	candy_drop_amount = INIT_CANDY_DROP_AMOUNT - 3
+	#set up parameters
+	set_up_parameters(CostumeType.KNIGHT)
 	sword_slash.enable_slash(false)
 
 

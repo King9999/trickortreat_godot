@@ -10,7 +10,8 @@ extends Costume
 
 func _ready() -> void:
 	super._ready()
-	move_speed = BASE_MOVE_SPEED - 15
+	#set up parameters
+	set_up_parameters(CostumeType.WITCH)
 	magic_shot.enable_magic_shot(false) 			#disables the node until it's ready to be used.
 	#use_trick()
 

@@ -26,6 +26,17 @@ var cpu_costumes: Array[Singleton.Selection] = []
 var cpu_select_scene: String = "res://Scenes/cpu_select.tscn"
 var main_game_scene: String = "res://Scenes/main.tscn"
 
+#game Parameters
+var json_param			#holds costume data such as trick cooldown, candy taken, etc.
+
+func _ready() -> void:
+	#read parameters JSON file
+	var file = FileAccess.open("res://Data/parameters.json", FileAccess.READ)
+	json_param = JSON.parse_string(file.get_as_text())
+	file.close()
+	#print(json_param[0].costume_name)
+	
+
 #Gets a random opponent for 3-player games (1 CPU opponent)
 func get_random_opponent():
 	#var cpu_costumes: Array[Singleton.Selection] = []
