@@ -13,11 +13,11 @@ class Game_HUD:
 	var cooldown_bar: TextureProgressBar
 
 var player_huds: Array[Game_HUD] = []
+var game_manager:GameManager = get_parent()
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#var game_manager:GameManager = get_parent()
 	
 	#NOTE: Is there a way to use string formatting to get the file names instead of doing it manually?
 	var p1_hud = Game_HUD.new()
@@ -28,6 +28,7 @@ func _ready() -> void:
 	p1_hud.candy_icon = $"Player 1 HUD/P1 Candy Icon"
 	p1_hud.cooldown_bar = $"Player 1 HUD/P1 Trick Cooldown Bar"
 	player_huds.append(p1_hud)
+	game_manager.players[0].activate_trick_cooldown.connect(_activate_cooldown_bar)
 	
 	var p2_hud = Game_HUD.new()
 	p2_hud.hud_node = $"Player 2 HUD"
@@ -37,6 +38,7 @@ func _ready() -> void:
 	p2_hud.candy_icon = $"Player 2 HUD/P2 Candy Icon"
 	p2_hud.cooldown_bar = $"Player 2 HUD/P2 Trick Cooldown Bar"
 	player_huds.append(p2_hud)
+	game_manager.players[1].activate_trick_cooldown.connect(_activate_cooldown_bar)
 	
 	var p3_hud = Game_HUD.new()
 	p3_hud.hud_node = $"Player 3 HUD"
@@ -46,6 +48,7 @@ func _ready() -> void:
 	p3_hud.candy_icon = $"Player 3 HUD/P3 Candy Icon"
 	p3_hud.cooldown_bar = $"Player 3 HUD/P3 Trick Cooldown Bar"
 	player_huds.append(p3_hud)
+	game_manager.players[2].activate_trick_cooldown.connect(_activate_cooldown_bar)
 	
 	var p4_hud = Game_HUD.new()
 	p4_hud.hud_node = $"Player 4 HUD"
@@ -55,6 +58,7 @@ func _ready() -> void:
 	p4_hud.candy_icon = $"Player 4 HUD/P4 Candy Icon"
 	p4_hud.cooldown_bar = $"Player 4 HUD/P4 Trick Cooldown Bar"
 	player_huds.append(p4_hud)
+	game_manager.players[3].activate_trick_cooldown.connect(_activate_cooldown_bar)
 	
 	#disable player 3 or 4 huds if necessary.
 	if Singleton.cpu_opponent_count < 2:
@@ -68,4 +72,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+func _activate_cooldown_bar():
 	pass

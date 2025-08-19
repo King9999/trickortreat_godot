@@ -47,8 +47,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !game_started:
 		countdown.start_countdown(true)
-	#else:
-		#pass
+	else:
+		#check if player used trick
+		if Input.is_action_just_pressed("P1_Trick"):
+			players[Human_Player.PLAYER_ONE].use_trick()
+		if Input.is_action_just_pressed("P2_Trick"):
+			players[Human_Player.PLAYER_TWO].use_trick()
 
 #function executes when countdown emits signal
 func _start_game():
@@ -98,6 +102,15 @@ func _physics_process(delta: float) -> void:
 	if game_started:
 		var input_p1 = Input.get_vector(Singleton.left_p1, Singleton.right_p1, Singleton.up_p1, Singleton.down_p1)
 		var input_p2 = Input.get_vector(Singleton.left_p2, Singleton.right_p2, Singleton.up_p2, Singleton.down_p2)
+		
+		#get direction. Even if input is released we still have the last input entered, so any tricks that depend on direction
+		#will fire in correct direction.
+		if (input_p1.x != 0 or input_p1.y != 0):
+			players[Human_Player.PLAYER_ONE].direction_vector = input_p1
+			#print("Direction Vector P1: {0}".format([players[Human_Player.PLAYER_ONE].direction_vector]))
+		if (input_p2.x != 0 or input_p2.y != 0):
+			players[Human_Player.PLAYER_TWO].direction_vector = input_p2
+			#print("Direction Vector P2: {0}".format([players[Human_Player.PLAYER_TWO].direction_vector]))
 		
 		players[Human_Player.PLAYER_ONE].global_position += input_p1 * delta * players[Human_Player.PLAYER_ONE].move_speed
 		players[Human_Player.PLAYER_TWO].global_position += input_p2 * delta * players[Human_Player.PLAYER_TWO].move_speed

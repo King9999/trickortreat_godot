@@ -17,5 +17,14 @@ func _set_default_candy_taken(amount: int):
 	candy_taken = default_candy_taken
 
 func use_trick():
-	pass
+	if trick_active:
+		return
 	
+	trick_active = true
+	#display sword slash 
+	print("slashing")
+	sword_slash.enable_slash(true, direction_vector)
+	await get_tree().create_timer(trick_duration).timeout
+	sword_slash.enable_slash(false)
+	end_trick()
+	print("slash ended")

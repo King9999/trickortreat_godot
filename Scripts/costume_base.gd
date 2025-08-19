@@ -6,6 +6,7 @@ extends CharacterBody2D
 class_name Costume
 
 signal on_hit(player: Costume)				#player sprite will shake and flash when hit by a trick. The appropriate funcs will be called
+signal activate_trick_cooldown()			#picked up by HUD to show cooldown bar and to start cooldown	
 
 @export var costume_name: String
 @export var candy_amount: int
@@ -15,6 +16,7 @@ signal on_hit(player: Costume)				#player sprite will shake and flash when hit b
 var vx: float
 var vy: float
 @export var move_speed: float = BASE_MOVE_SPEED        #scales vx and vy. Lower value = slower speed
+@export var direction_vector: Vector2				#tracks which way player is facing.
 
 @export_category("Timers & Booleans")
 var last_invul_time: float             			#timestamp to get current time
@@ -35,6 +37,8 @@ enum Player { HUMAN, CPU }
 @export var player_type: Player
 
 enum CostumeType { GHOST, KNIGHT, PRINCESS, WITCH }   #used for identifying & extracting parameters in parameters.json
+enum Direction { LEFT, RIGHT, UP, DOWN }				#used when tricks are activated so they can be launched in the direction player is facing.
+@export var direction: Direction
 
 #consts  
 const MAX_CANDY: int = 999
@@ -56,9 +60,9 @@ func _process(delta: float) -> void:
 func use_trick() -> void:
 	pass
 	
-func _move(delta: float):
-	var input = Input.get_vector("Left", "Right", "Up", "Down")
-	global_position += input * delta * move_speed
+#func _move(delta: float):
+	#var input = Input.get_vector("Left", "Right", "Up", "Down")
+	#global_position += input * delta * move_speed
 	
 
 #TODO: Add this function in the candy script!	
@@ -80,6 +84,12 @@ func set_default_candy_taken(amount: int):
 func call_trick_or_treat(toggle: bool):
 	trick_or_treat_sprite.visible = toggle
 
+##Begins trick cooldown and emits signal to the HUD to display cooldown bar.	
+func end_trick():
+	trick_active = false
+	last_cooldown_time = Time.get_unix_time_from_system()
+	activate_trick_cooldown.emit()
+
 ##Applies parameters from JSON file	
 func set_up_parameters(costume: CostumeType):
 	costume_name = Singleton.json_param[costume].costume_name
@@ -91,24 +101,24 @@ func set_up_parameters(costume: CostumeType):
 	set_default_candy_taken(candy_taken)
 
 #player movement TODO: Must change this so each player has seprate controls.	
-func _physics_process(delta: float) -> void:
-	velocity.x = 0		#velocity is built in to CharacterBody2D
-	velocity.y = 0
-	
-	#var input = Input.get_vector("Left", "Right", "Up", "Down")
-	#global_position += input * delta * move_speed
-	
-	#check for keyboard input
-	"""if Input.is_key_pressed(KEY_LEFT):
-		velocity.x -= move_speed
-	
-	if Input.is_key_pressed(KEY_RIGHT):
-		velocity.x += move_speed
-		
-	if Input.is_key_pressed(KEY_UP):
-		velocity.y -= move_speed
-		
-	if Input.is_key_pressed(KEY_DOWN):
-		velocity.y += move_speed"""
-	
-	move_and_slide()	#important func to update physics and movement. Must be called at the end of above code.
+#func _physics_process(delta: float) -> void:
+	#velocity.x = 0		#velocity is built in to CharacterBody2D
+	#velocity.y = 0
+	#
+	##var input = Input.get_vector("Left", "Right", "Up", "Down")
+	##global_position += input * delta * move_speed
+	#
+	##check for keyboard input
+	#"""if Input.is_key_pressed(KEY_LEFT):
+		#velocity.x -= move_speed
+	#
+	#if Input.is_key_pressed(KEY_RIGHT):
+		#velocity.x += move_speed
+		#
+	#if Input.is_key_pressed(KEY_UP):
+		#velocity.y -= move_speed
+		#
+	#if Input.is_key_pressed(KEY_DOWN):
+		#velocity.y += move_speed"""
+	#
+	#move_and_slide()	#important func to update physics and movement. Must be called at the end of above code.

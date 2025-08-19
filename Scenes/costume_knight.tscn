@@ -12,9 +12,21 @@ size = Vector2(72, 7)
 [node name="Knight" instance=ExtResource("1_oxhh8")]
 script = ExtResource("2_tv4cp")
 costume_name = "Knight"
+candy_amount = null
 candy_drop_amount = 2
+candy_taken = null
+default_candy_taken = null
 move_speed = 120.0
+direction_vector = null
+invul_duration = null
+invincible = null
+stun_duration = null
+stunned = null
 collecting_candy = true
+trick_duration = null
+trick_cooldown = null
+player_type = null
+direction = null
 
 [node name="Sprite_Costume" parent="." index="0"]
 texture = ExtResource("2_523sj")
@@ -23,9 +35,10 @@ texture = ExtResource("2_523sj")
 position = Vector2(0, 0)
 
 [node name="Sword Slash" type="Area2D" parent="." index="3"]
+z_index = -1
 script = ExtResource("4_n6ngm")
 
-[node name="Sprite2D" type="Sprite2D" parent="Sword Slash" index="0"]
+[node name="Sword Slash" type="Sprite2D" parent="Sword Slash" index="0"]
 texture = ExtResource("4_o4fce")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword Slash" index="1"]
