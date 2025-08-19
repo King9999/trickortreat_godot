@@ -1,0 +1,368 @@
+[gd_scene load_steps=21 format=3 uid="uid://dub32hrwkr01h"]
+
+[ext_resource type="Script" uid="uid://d3v5m54oepb6b" path="res://Scripts/game_manager.gd" id="1_fdnlq"]
+[ext_resource type="Texture2D" uid="uid://cn57fucuohft3" path="res://Sprites/Level.png" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://knvtqv5xju0a" path="res://Scripts/house_manager.gd" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://dy622oifu2orq" path="res://Scenes/house.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://rojba8fy4rsu" path="res://Scenes/costume_knight.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://siohwbcnl08s" path="res://Scenes/costume_ghost.tscn" id="6_6bp64"]
+[ext_resource type="PackedScene" uid="uid://dkaywba7sevkf" path="res://Scenes/costume_princess.tscn" id="7_344ge"]
+[ext_resource type="PackedScene" uid="uid://4s36quwb0krr" path="res://Scenes/costume_witch.tscn" id="8_ynf5e"]
+[ext_resource type="Script" uid="uid://dk7c7ngm54vmc" path="res://Scripts/timer.gd" id="9_hptm8"]
+[ext_resource type="FontFile" uid="uid://bm0exkohycdql" path="res://Fonts/MONO0766.TTF" id="10_hptm8"]
+[ext_resource type="Script" uid="uid://d0kc1mlc6bu2t" path="res://Scripts/countdown.gd" id="11_6iyac"]
+[ext_resource type="FontFile" uid="uid://e1ryjho26wk4" path="res://Fonts/LEAGUESPARTAN-BOLD.OTF" id="11_d1ilt"]
+[ext_resource type="Script" uid="uid://b4pcogr48jsd1" path="res://Scripts/hud.gd" id="13_h1bgf"]
+[ext_resource type="FontFile" uid="uid://dxcgk8flk1k3h" path="res://Fonts/KROEGER0665.TTF" id="13_k12tt"]
+[ext_resource type="Texture2D" uid="uid://ca656t6mccsoa" path="res://Sprites/Costumes/Ghost.png" id="14_h1bgf"]
+[ext_resource type="Texture2D" uid="uid://cuhruqax5kndg" path="res://Sprites/candy.png" id="15_b3802"]
+[ext_resource type="Texture2D" uid="uid://cxdccylve3ie" path="res://Sprites/cooldownbar.png" id="16_fevyy"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_bo1nx"]
+vertices = PackedVector2Array(475, -83, 475, -203, 502, -310, 502, 422, 474, 261, 474, 141, 307, 373, -494, 422, 171, 373, -221, 373, -357, 373, 339, -83, 338, 141, 147, 56, 147, -64, 338, 261, 307, 253, -357, 253, -494, 197, -365, 197, 275, -310, 339, -203, 275, -219, -165, -227, -165, -310, 139, -310, 139, -219, 11, -64, 0, -64, 11, 56, 0, 56, 171, 253, -221, 253, -365, 77, -494, 77, -494, -59, -373, -59, -136, 56, -373, -179, -494, -179, -494, -310, -301, -310, -301, -227, -136, -64)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 3, 7, 8), PackedInt32Array(9, 8, 7), PackedInt32Array(10, 9, 7), PackedInt32Array(11, 0, 5, 12, 13, 14), PackedInt32Array(4, 3, 6, 15), PackedInt32Array(15, 6, 16, 12), PackedInt32Array(17, 10, 7, 18, 19), PackedInt32Array(20, 2, 1, 21, 22), PackedInt32Array(23, 24, 25, 26, 27, 28), PackedInt32Array(27, 29, 30, 28), PackedInt32Array(13, 31, 8, 9, 32, 29), PackedInt32Array(33, 34, 35, 36, 37), PackedInt32Array(38, 39, 40, 41, 42), PackedInt32Array(26, 22, 21, 11, 14, 27), PackedInt32Array(23, 28, 43), PackedInt32Array(32, 17, 19, 33, 37, 30), PackedInt32Array(13, 12, 16, 31), PackedInt32Array(30, 29, 32), PackedInt32Array(42, 23, 43, 37, 36, 38)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-504, -320, 512, -320, 512, 432, -504, 432)])
+
+[sub_resource type="FontVariation" id="FontVariation_d1ilt"]
+base_font = ExtResource("11_d1ilt")
+spacing_glyph = 10
+
+[sub_resource type="FontVariation" id="FontVariation_hibaj"]
+base_font = ExtResource("13_k12tt")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_fdnlq")
+game_time = 120
+costume_scenes = Array[PackedScene]([ExtResource("6_6bp64"), ExtResource("5_kry3j"), ExtResource("7_344ge"), ExtResource("8_ynf5e")])
+
+[node name="Level" type="Sprite2D" parent="."]
+z_index = -100
+texture = ExtResource("1_jjgbg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Nav Mesh" type="NavigationRegion2D" parent="."]
+position = Vector2(-2, 3)
+navigation_polygon = SubResource("NavigationPolygon_bo1nx")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Nav Mesh"]
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(147, 0)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-165, -283)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-373, -115)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-365, 141)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(-221, 317)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D7" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(307, 317)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D8" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(474, 205)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D9" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(475, -139)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle2D10" type="NavigationObstacle2D" parent="Nav Mesh"]
+position = Vector2(275, -275)
+vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="House Manager" type="Node2D" parent="."]
+script = ExtResource("2_8gbba")
+
+[node name="House" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-67, 3)
+
+[node name="House2" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(80, 3)
+
+[node name="House3" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-232, -280)
+
+[node name="House4" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-440, -112)
+
+[node name="House5" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-432, 144)
+
+[node name="House6" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(-288, 320)
+
+[node name="House7" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(208, -272)
+
+[node name="House8" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(408, -136)
+
+[node name="House9" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(408, 208)
+
+[node name="House10" parent="House Manager" instance=ExtResource("2_bo1nx")]
+position = Vector2(240, 320)
+
+[node name="Timer" type="Node2D" parent="."]
+position = Vector2(-2, -384)
+script = ExtResource("9_hptm8")
+
+[node name="Timer Label" type="RichTextLabel" parent="Timer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_top = -8.0
+offset_right = 162.0
+offset_bottom = 52.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("10_hptm8")
+theme_override_font_sizes/normal_font_size = 32
+text = "00:00:00"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Countdown" type="Node2D" parent="."]
+script = ExtResource("11_6iyac")
+
+[node name="Countdown Label" type="RichTextLabel" parent="Countdown"]
+z_index = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -232.0
+offset_right = 200.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 20
+theme_override_fonts/normal_font = SubResource("FontVariation_d1ilt")
+theme_override_font_sizes/normal_font_size = 144
+text = "GO!"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player 1 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(-263, -128)
+
+[node name="Player 2 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(240, 144)
+
+[node name="Player 3 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(-232, 143)
+
+[node name="Player 4 Start Position" type="Node2D" parent="."]
+editor_description = "Node where player 1 starts"
+position = Vector2(232, -128)
+
+[node name="HUD" type="Node2D" parent="."]
+position = Vector2(0, -416)
+script = ExtResource("13_h1bgf")
+
+[node name="Player 1 HUD" type="Node2D" parent="HUD"]
+position = Vector2(-496, 8)
+
+[node name="P1 Trick OK Text" type="RichTextLabel" parent="HUD/Player 1 HUD"]
+offset_left = 40.0
+offset_top = -8.0
+offset_right = 161.0
+offset_bottom = 16.0
+theme_override_colors/default_color = Color(0.929412, 0.698039, 0, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "TRICK OK!"
+
+[node name="P1 Candy Amount" type="RichTextLabel" parent="HUD/Player 1 HUD"]
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "x 00"
+
+[node name="P1 Costume" type="Sprite2D" parent="HUD/Player 1 HUD"]
+position = Vector2(24, 20)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("14_h1bgf")
+
+[node name="P1 Candy Icon" type="Sprite2D" parent="HUD/Player 1 HUD"]
+position = Vector2(56.5, 32.5)
+texture = ExtResource("15_b3802")
+
+[node name="P1 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 1 HUD"]
+offset_left = 80.0
+offset_top = -8.0
+offset_right = 128.0
+offset_bottom = 40.0
+scale = Vector2(0.700215, 0.700215)
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("16_fevyy")
+tint_progress = Color(0, 0.437703, 0.900895, 1)
+
+[node name="Player 2 HUD" type="Node2D" parent="HUD"]
+position = Vector2(-335, 8)
+
+[node name="P2 Trick OK Text" type="RichTextLabel" parent="HUD/Player 2 HUD"]
+offset_left = 40.0
+offset_top = -8.0
+offset_right = 161.0
+offset_bottom = 16.0
+theme_override_colors/default_color = Color(0.929412, 0.698039, 0, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "TRICK OK!"
+
+[node name="P2 Candy Amount" type="RichTextLabel" parent="HUD/Player 2 HUD"]
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "x 00"
+
+[node name="P2 Costume" type="Sprite2D" parent="HUD/Player 2 HUD"]
+position = Vector2(24, 20)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("14_h1bgf")
+
+[node name="P2 Candy Icon" type="Sprite2D" parent="HUD/Player 2 HUD"]
+position = Vector2(56.5, 32.5)
+texture = ExtResource("15_b3802")
+
+[node name="P2 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 2 HUD"]
+offset_left = 80.0
+offset_top = -8.0
+offset_right = 128.0
+offset_bottom = 40.0
+scale = Vector2(0.700215, 0.700215)
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("16_fevyy")
+tint_progress = Color(0, 0.437703, 0.900895, 1)
+
+[node name="Player 3 HUD" type="Node2D" parent="HUD"]
+position = Vector2(145, 8)
+
+[node name="P3 Trick OK Text" type="RichTextLabel" parent="HUD/Player 3 HUD"]
+offset_left = 40.0
+offset_top = -8.0
+offset_right = 161.0
+offset_bottom = 16.0
+theme_override_colors/default_color = Color(0.929412, 0.698039, 0, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "TRICK OK!"
+
+[node name="P3 Candy Amount" type="RichTextLabel" parent="HUD/Player 3 HUD"]
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "x 00"
+
+[node name="P3 Costume" type="Sprite2D" parent="HUD/Player 3 HUD"]
+position = Vector2(24, 20)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("14_h1bgf")
+
+[node name="P3 Candy Icon" type="Sprite2D" parent="HUD/Player 3 HUD"]
+position = Vector2(56.5, 32.5)
+texture = ExtResource("15_b3802")
+
+[node name="P3 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 3 HUD"]
+offset_left = 80.0
+offset_top = -8.0
+offset_right = 128.0
+offset_bottom = 40.0
+scale = Vector2(0.700215, 0.700215)
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("16_fevyy")
+tint_progress = Color(0, 0.437703, 0.900895, 1)
+
+[node name="Player 4 HUD" type="Node2D" parent="HUD"]
+position = Vector2(312, 8)
+
+[node name="P4 Trick OK Text" type="RichTextLabel" parent="HUD/Player 4 HUD"]
+offset_left = 40.0
+offset_top = -8.0
+offset_right = 161.0
+offset_bottom = 16.0
+theme_override_colors/default_color = Color(0.929412, 0.698039, 0, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "TRICK OK!"
+
+[node name="P4 Candy Amount" type="RichTextLabel" parent="HUD/Player 4 HUD"]
+offset_left = 72.5
+offset_top = 24.5
+offset_right = 137.5
+offset_bottom = 48.5
+theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
+text = "x 00"
+
+[node name="P4 Costume" type="Sprite2D" parent="HUD/Player 4 HUD"]
+position = Vector2(24, 20)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("14_h1bgf")
+
+[node name="P4 Candy Icon" type="Sprite2D" parent="HUD/Player 4 HUD"]
+position = Vector2(56.5, 32.5)
+texture = ExtResource("15_b3802")
+
+[node name="P4 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 4 HUD"]
+offset_left = 80.0
+offset_top = -8.0
+offset_right = 128.0
+offset_bottom = 40.0
+scale = Vector2(0.700215, 0.700215)
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("16_fevyy")
+tint_progress = Color(0, 0.437703, 0.900895, 1)

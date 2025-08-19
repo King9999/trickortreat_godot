@@ -6,7 +6,8 @@ extends CharacterBody2D
 class_name Costume
 
 signal on_hit(player: Costume)				#player sprite will shake and flash when hit by a trick. The appropriate funcs will be called
-signal activate_trick_cooldown()			#picked up by HUD to show cooldown bar and to start cooldown	
+signal activate_trick_cooldown(player_num: int)			#picked up by HUD to show cooldown bar and to start cooldown
+#@onready var hud: GameHUD = $HUD
 
 @export var costume_name: String
 @export var candy_amount: int
@@ -35,6 +36,7 @@ var trick_active: bool
 
 enum Player { HUMAN, CPU }
 @export var player_type: Player
+var player_num: int							#corresponds to the player_huds array hud.gd
 
 enum CostumeType { GHOST, KNIGHT, PRINCESS, WITCH }   #used for identifying & extracting parameters in parameters.json
 enum Direction { LEFT, RIGHT, UP, DOWN }				#used when tricks are activated so they can be launched in the direction player is facing.
@@ -88,7 +90,12 @@ func call_trick_or_treat(toggle: bool):
 func end_trick():
 	trick_active = false
 	last_cooldown_time = Time.get_unix_time_from_system()
-	activate_trick_cooldown.emit()
+	
+	var game_manager: GameManager = get_parent()
+	#if (hud == null):
+	#	hud = $HUD
+	#game_manager.hud._activate_cooldown_bar(player_num)
+	activate_trick_cooldown.emit(player_num)
 
 ##Applies parameters from JSON file	
 func set_up_parameters(costume: CostumeType):

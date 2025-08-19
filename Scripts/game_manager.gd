@@ -14,6 +14,9 @@ class_name GameManager
 @onready var player_position3: Node2D = $"Player 3 Start Position"
 @onready var player_position4: Node2D = $"Player 4 Start Position"
 
+#HUD
+@onready var hud: GameHUD = $HUD
+
 @export var candy_list: Array[Candy] = []			#location of on screen candy objects
 @export var game_time: int							#time in seconds. default 2 minutes
 var game_started: bool
@@ -42,6 +45,9 @@ func _ready() -> void:
 	elif Singleton.cpu_opponent_count == 2:
 		for cpu_player in Singleton.cpu_costumes:
 			_set_up_players(cpu_player)	
+	
+	#HUD set up
+	hud.set_up_huds()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -82,15 +88,19 @@ func _set_up_players(selection: Singleton.Selection):
 	if players.size() == 1:
 		player.global_position = player_position1.global_position
 		player.player_type = Costume.Player.HUMAN
+		player.player_num = 0
 	elif players.size() == 2:
 		player.global_position = player_position2.global_position
 		player.player_type = Costume.Player.HUMAN
+		player.player_num = 1
 	elif players.size() == 3:
 		player.global_position = player_position3.global_position
 		player.player_type = Costume.Player.CPU
+		player.player_num = 2
 	else:
 		player.global_position = player_position4.global_position
 		player.player_type = Costume.Player.CPU
+		player.player_num = 3
 			
 	add_child(player) #important step when instantiating nodes.
 
