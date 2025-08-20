@@ -211,7 +211,7 @@ offset_left = 40.0
 offset_top = -8.0
 offset_right = 161.0
 offset_bottom = 16.0
-theme_override_colors/default_color = Color(0.929412, 0.698039, 0, 1)
+theme_override_colors/default_color = Color(0.929, 0.698, 0, 1)
 theme_override_fonts/normal_font = SubResource("FontVariation_hibaj")
 text = "TRICK OK!"
 
@@ -233,11 +233,11 @@ position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P1 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 1 HUD"]
-offset_left = 80.0
+offset_left = 76.0
 offset_top = -8.0
-offset_right = 128.0
+offset_right = 124.0
 offset_bottom = 40.0
-scale = Vector2(0.700215, 0.700215)
+scale = Vector2(0.6, 0.6)
 max_value = 1.0
 step = 0.01
 fill_mode = 4
@@ -274,11 +274,11 @@ position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P2 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 2 HUD"]
-offset_left = 80.0
+offset_left = 76.0
 offset_top = -8.0
-offset_right = 128.0
+offset_right = 124.0
 offset_bottom = 40.0
-scale = Vector2(0.700215, 0.700215)
+scale = Vector2(0.6, 0.6)
 max_value = 1.0
 step = 0.01
 fill_mode = 4
@@ -315,11 +315,11 @@ position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P3 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 3 HUD"]
-offset_left = 80.0
+offset_left = 76.0
 offset_top = -8.0
-offset_right = 128.0
+offset_right = 124.0
 offset_bottom = 40.0
-scale = Vector2(0.700215, 0.700215)
+scale = Vector2(0.6, 0.6)
 max_value = 1.0
 step = 0.01
 fill_mode = 4
@@ -356,11 +356,11 @@ position = Vector2(56.5, 32.5)
 texture = ExtResource("15_b3802")
 
 [node name="P4 Trick Cooldown Bar" type="TextureProgressBar" parent="HUD/Player 4 HUD"]
-offset_left = 80.0
+offset_left = 76.0
 offset_top = -8.0
-offset_right = 128.0
+offset_right = 124.0
 offset_bottom = 40.0
-scale = Vector2(0.700215, 0.700215)
+scale = Vector2(0.6, 0.6)
 max_value = 1.0
 step = 0.01
 fill_mode = 4

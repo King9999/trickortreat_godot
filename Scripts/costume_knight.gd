@@ -17,14 +17,16 @@ func _set_default_candy_taken(amount: int):
 	candy_taken = default_candy_taken
 
 func use_trick():
-	if trick_active:
+	if trick_active || trick_on_cooldown:
 		return
 	
 	trick_active = true
+	move_speed = 0				#knight can't move during trick
 	#display sword slash 
 	print("slashing")
 	sword_slash.enable_slash(true, direction_vector)
 	await get_tree().create_timer(trick_duration).timeout
 	sword_slash.enable_slash(false)
+	move_speed = base_move_speed
 	end_trick()
 	print("slash ended")

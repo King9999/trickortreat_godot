@@ -16,7 +16,8 @@ signal activate_trick_cooldown(player_num: int)			#picked up by HUD to show cool
 @export var default_candy_taken: int		#the princess takes more candy
 var vx: float
 var vy: float
-@export var move_speed: float = BASE_MOVE_SPEED        #scales vx and vy. Lower value = slower speed
+@export var move_speed: float        #scales vx and vy. Lower value = slower speed
+var base_move_speed: float
 @export var direction_vector: Vector2				#tracks which way player is facing.
 
 @export_category("Timers & Booleans")
@@ -104,7 +105,8 @@ func set_up_parameters(costume: CostumeType):
 	costume_name = Singleton.json_param[costume].costume_name
 	candy_drop_amount = Singleton.json_param[costume].candy_drop_amount
 	candy_taken = Singleton.json_param[costume].candy_taken
-	move_speed = Singleton.json_param[costume].move_speed
+	base_move_speed = Singleton.json_param[costume].move_speed
+	move_speed = base_move_speed
 	trick_cooldown = Singleton.json_param[costume].trick_cooldown
 	trick_duration = Singleton.json_param[costume].trick_duration
 	set_default_candy_taken(candy_taken)

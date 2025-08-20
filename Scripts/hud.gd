@@ -17,6 +17,9 @@ class Game_HUD:
 var player_huds: Array[Game_HUD] = []
 @onready var game_manager:GameManager = get_parent()
 
+#colors
+const TRICK_ENABLED_COLOR: Color = Color(0.929, 0.698, 0, 1)
+const TRICK_DISABLED_COLOR: Color = Color(0.929, 0.698, 0, 0.5)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -132,13 +135,15 @@ func _process(delta: float) -> void:
 		if player.trick_on_cooldown:
 			var time = Time.get_unix_time_from_system()
 			player_huds[i].cooldown_bar.value = (time - player.last_cooldown_time) / player.trick_cooldown #- player.last_cooldown_time #* player_huds[i].cooldown_bar.max_value
-			print(player_huds[i].cooldown_bar.value)
+			#print(player_huds[i].cooldown_bar.value)
 			#print(time - player.last_cooldown_time)
 			if player_huds[i].cooldown_bar.value >= player_huds[i].cooldown_bar.max_value:
 				player_huds[i].cooldown_bar.value = 0
 				player.trick_on_cooldown = false
+				player_huds[i].trick_ok_label.add_theme_color_override("default_color", TRICK_ENABLED_COLOR)
 
 func _activate_cooldown_bar(player_num: int):
 	#reduce visibility of 'TRICK OK' while trick is in cooldown
+	player_huds[player_num].trick_ok_label.add_theme_color_override("default_color", TRICK_DISABLED_COLOR)
 	player_huds[player_num].cooldown_bar.value = 0
 	print("Triggering cooldown for player {0}".format([player_num]))

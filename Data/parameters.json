@@ -12,7 +12,7 @@
 	"candy_taken": 1,
 	"candy_drop_amount": 2,
 	"trick_duration": 0.5,
-	"trick_cooldown": 5,
+	"trick_cooldown": 0.8,
 	"move_speed": 120
   },
   {
