@@ -19,5 +19,16 @@ func _set_default_candy_taken(amount: int):
 
 #Generates a "BOO" sprite. Any target in range of it drops double candy.
 func use_trick():
-	#When trick is used, ghost's hitbox must be temporarily disabled so they aren't hit by their own attack
-	pass
+	if trick_active || trick_on_cooldown:
+		return
+	
+	trick_active = true
+	move_speed = 0				#Ghost can't move during trick
+	#display BOO
+	print("BOO!")
+	boo_attack.enable_boo(true)
+	await get_tree().create_timer(trick_duration).timeout
+	boo_attack.enable_boo(false)
+	move_speed = base_move_speed
+	end_trick()
+	print("boo ended")

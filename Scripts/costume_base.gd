@@ -25,7 +25,7 @@ var last_invul_time: float             			#timestamp to get current time
 @export var invul_duration: float = 1.5       	#time in seconds. Determines how long player is invincible
 @export var invincible: bool
 var last_stun_time: float
-@export var stun_duration: float = 1          #time in seconds. Player can't move during this time
+@export var stun_duration: float = 0.5          #time in seconds. Player can't move during this time
 @export var stunned: bool
 @export var collecting_candy: bool			#is true when player is in front of house with candy
 @export var trick_duration: float            #how long a trick is active for.
@@ -33,6 +33,7 @@ var last_cooldown_time: float           	#time in seconds before trick is rechar
 @export var trick_cooldown: float           #cooldown of each trick.
 var trick_active: bool
 var trick_on_cooldown: bool
+var last_hit_check_time: float				#checks for when player is hit to emit signal.
 
 @onready var trick_or_treat_sprite: Sprite2D = $"Sprite_Trick Or Treat Bubble"
 
@@ -58,7 +59,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#_move(delta)
+	#var time = Time.get_unix_time_from_system()
+	#if time > last_hit_check_time + 0.2:
+		#last_hit_check_time = time
+		#on_hit.emit(self)
 	pass
+	
 
 #overridable function that will be used in inherhited nodes.	
 func use_trick() -> void:
@@ -79,6 +85,7 @@ func drop_candy(amount: int):
 	if candy_amount < amount:
 		amount = candy_amount
 	candy_amount -= amount
+	#TODO: generate candy on screen for other players to pick up
 
 func set_default_candy_taken(amount: int):
 	default_candy_taken = amount
@@ -111,25 +118,28 @@ func set_up_parameters(costume: CostumeType):
 	trick_duration = Singleton.json_param[costume].trick_duration
 	set_default_candy_taken(candy_taken)
 
-#player movement TODO: Must change this so each player has seprate controls.	
-#func _physics_process(delta: float) -> void:
-	#velocity.x = 0		#velocity is built in to CharacterBody2D
-	#velocity.y = 0
-	#
-	##var input = Input.get_vector("Left", "Right", "Up", "Down")
-	##global_position += input * delta * move_speed
-	#
-	##check for keyboard input
-	#"""if Input.is_key_pressed(KEY_LEFT):
-		#velocity.x -= move_speed
-	#
-	#if Input.is_key_pressed(KEY_RIGHT):
-		#velocity.x += move_speed
-		#
-	#if Input.is_key_pressed(KEY_UP):
-		#velocity.y -= move_speed
-		#
-	#if Input.is_key_pressed(KEY_DOWN):
-		#velocity.y += move_speed"""
-	#
-	#move_and_slide()	#important func to update physics and movement. Must be called at the end of above code.
+##Causes player to shake and be stunned for a duration.
+func take_hit():
+	stunned = true
+	move_speed = 0
+	var orig_pos: Vector2 = global_position
+	
+	#temporarily disable hitbox so player can't be hit by other opponents
+	var hitbox:CollisionShape2D = $Collison
+	hitbox.disabled = true
+	
+	#shake effect
+	var y_pos: float = 4
+	last_stun_time = Time.get_unix_time_from_system()
+	while(Time.get_unix_time_from_system() < last_stun_time + stun_duration):
+		#var rand_x: float = randf_range(-2, 2)
+		#var rand_y: float = randf_range(-5, 5)
+		global_position = Vector2(orig_pos.x, orig_pos.y + y_pos)
+		y_pos *= -1
+		await get_tree().create_timer(0.05).timeout
+		
+	#return to normal
+	global_position = orig_pos
+	move_speed = base_move_speed
+	hitbox.disabled = false
+	invincible = true

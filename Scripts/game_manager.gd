@@ -115,15 +115,18 @@ func _physics_process(delta: float) -> void:
 		
 		#get direction. Even if input is released we still have the last input entered, so any tricks that depend on direction
 		#will fire in correct direction.
+		var player_1 = players[Human_Player.PLAYER_ONE]
+		var player_2 = players[Human_Player.PLAYER_TWO]
+		
 		if (input_p1.x != 0 or input_p1.y != 0):
-			players[Human_Player.PLAYER_ONE].direction_vector = input_p1
+			player_1.direction_vector = input_p1
 			#print("Direction Vector P1: {0}".format([players[Human_Player.PLAYER_ONE].direction_vector]))
 		if (input_p2.x != 0 or input_p2.y != 0):
-			players[Human_Player.PLAYER_TWO].direction_vector = input_p2
+			player_2.direction_vector = input_p2
 			#print("Direction Vector P2: {0}".format([players[Human_Player.PLAYER_TWO].direction_vector]))
 		
-		players[Human_Player.PLAYER_ONE].global_position += input_p1 * delta * players[Human_Player.PLAYER_ONE].move_speed
-		players[Human_Player.PLAYER_TWO].global_position += input_p2 * delta * players[Human_Player.PLAYER_TWO].move_speed
+		player_1.global_position += input_p1 * delta * player_1.move_speed
+		player_2.global_position += input_p2 * delta * player_2.move_speed
 		
-		players[Human_Player.PLAYER_ONE].move_and_slide()
-		players[Human_Player.PLAYER_TWO].move_and_slide()
+		player_1.move_and_slide()
+		player_2.move_and_slide()
