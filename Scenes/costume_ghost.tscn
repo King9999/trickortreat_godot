@@ -12,13 +12,14 @@ script = ExtResource("2_dyja4")
 costume_name = "Ghost"
 
 [node name="Boo" type="Area2D" parent="." index="3"]
+z_index = 1
 script = ExtResource("3_c3r6t")
 
 [node name="Boo Sprite" type="Sprite2D" parent="Boo" index="0"]
 texture = ExtResource("4_okhb3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boo" index="1"]
-scale = Vector2(-3.60434, -2.51243)
+scale = Vector2(-4.92169, -3.4307)
 shape = SubResource("CircleShape2D_tn2ea")
 debug_color = Color(0.767865, 0.0591041, 0.15001, 0.419608)
 

@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	#Check if the body belongs to a player, and ignore all others
 	var hit_list = get_overlapping_bodies()
-	print(hit_list)
+	#print(hit_list)
 	
 	#Check what was hit
 	for i in hit_list.size():
@@ -30,7 +30,7 @@ func _on_body_entered(body: Node2D) -> void:
 		if (costume != null):
 			#player was hit
 			costume.take_hit()
-			print("hit {0}".format([costume.costume_name]))
+			#print("hit {0}".format([costume.costume_name]))
 	#if body.get_parent() is Costume:
 	#print("hit {0}".format([body.get_parent().name]))
 	#pass # Replace with function body.

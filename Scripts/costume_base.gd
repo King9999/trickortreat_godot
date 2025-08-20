@@ -120,7 +120,11 @@ func set_up_parameters(costume: CostumeType):
 
 ##Causes player to shake and be stunned for a duration.
 func take_hit():
+	if invincible || stunned:
+		return
+	
 	stunned = true
+	invincible = true
 	move_speed = 0
 	var orig_pos: Vector2 = global_position
 	
@@ -141,6 +145,7 @@ func take_hit():
 	#return to normal
 	global_position = orig_pos
 	move_speed = base_move_speed
+	stunned = false
 	#hitbox.disabled = false
 	_set_invincible(self)
 
@@ -155,7 +160,8 @@ func _set_invincible(player: Costume):
 	while(Time.get_unix_time_from_system() < last_invul_time + invul_duration):
 		sprite.visible = !sprite.visible
 		print("visible: " + str(sprite.visible))
-		await get_tree().create_timer(0.05).timeout
+		await get_tree().create_timer(0.08).timeout
 	
 	sprite.visible = true
 	hitbox.disabled = false
+	invincible = false
