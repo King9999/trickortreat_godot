@@ -141,5 +141,21 @@ func take_hit():
 	#return to normal
 	global_position = orig_pos
 	move_speed = base_move_speed
+	#hitbox.disabled = false
+	_set_invincible(self)
+
+func _set_invincible(player: Costume):
+	#disable hitbox
+	var hitbox:CollisionShape2D = $Collison
+	#hitbox.disabled = true
+	
+	#player sprite flickers while invul
+	var sprite: Sprite2D = $Sprite_Costume
+	last_invul_time = Time.get_unix_time_from_system()
+	while(Time.get_unix_time_from_system() < last_invul_time + invul_duration):
+		sprite.visible = !sprite.visible
+		print("visible: " + str(sprite.visible))
+		await get_tree().create_timer(0.05).timeout
+	
+	sprite.visible = true
 	hitbox.disabled = false
-	invincible = true
