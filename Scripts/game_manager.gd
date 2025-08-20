@@ -17,6 +17,7 @@ class_name GameManager
 #HUD
 @onready var hud: GameHUD = $HUD
 
+@export var candy_scene: PackedScene
 @export var candy_list: Array[Candy] = []			#location of on screen candy objects
 @export var game_time: int							#time in seconds. default 2 minutes
 var game_started: bool

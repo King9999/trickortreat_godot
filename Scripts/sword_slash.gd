@@ -29,6 +29,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var costume = hit_list[i] as Costume
 		if (costume != null):
 			#player was hit
+			costume.drop_candy(costume.candy_drop_amount)
 			costume.take_hit()
 			#print("hit {0}".format([costume.costume_name]))
 	#if body.get_parent() is Costume:

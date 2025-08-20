@@ -86,6 +86,24 @@ func drop_candy(amount: int):
 		amount = candy_amount
 	candy_amount -= amount
 	#TODO: generate candy on screen for other players to pick up
+	if amount <= 0:
+		return
+		
+	var game_manager: GameManager = get_parent()
+	for i in amount:
+		#candy is sent to random positions around the player who got hit.
+		var candy: Candy = game_manager.candy_scene.instantiate()
+		var rand_x = randf_range(-10, 10)
+		var rand_y = randf_range(-10, 10)
+		
+		candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
+		while (candy.global_position - global_position).length() <= 1.1:
+			rand_x = randf_range(-10, 10)
+			rand_y = randf_range(-10, 10)
+			candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
+			
+		game_manager.add_child(candy)
+		game_manager.candy_list.append(candy)
 
 func set_default_candy_taken(amount: int):
 	default_candy_taken = amount
