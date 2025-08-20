@@ -31,6 +31,7 @@ var last_stun_time: float
 var last_cooldown_time: float           	#time in seconds before trick is recharged. Starts at zero so that trick can be used immediately at game start
 @export var trick_cooldown: float           #cooldown of each trick.
 var trick_active: bool
+var trick_on_cooldown: bool
 
 @onready var trick_or_treat_sprite: Sprite2D = $"Sprite_Trick Or Treat Bubble"
 
@@ -90,6 +91,7 @@ func call_trick_or_treat(toggle: bool):
 func end_trick():
 	trick_active = false
 	last_cooldown_time = Time.get_unix_time_from_system()
+	trick_on_cooldown = true
 	
 	var game_manager: GameManager = get_parent()
 	#if (hud == null):
