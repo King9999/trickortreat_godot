@@ -115,9 +115,10 @@ func drop_candy(amount: int):
 		var rand_y = randf_range(-range, range)
 		
 		candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
-		var vec_length = (candy.global_position - global_position).length()
-		print("Vector length: {0}".format([vec_length]))
-		while vec_length < 10:
+		#var vec_length = (candy.global_position - global_position).length()
+		#print("Vector length: {0}".format([vec_length]))
+		var min_range = 15
+		while (rand_x >= -min_range && rand_x <=min_range) && (rand_y >= -min_range && rand_y <= min_range):
 			rand_x = randf_range(-range, range)
 			rand_y = randf_range(-range, range)
 			candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
