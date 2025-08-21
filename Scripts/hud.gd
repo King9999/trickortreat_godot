@@ -118,9 +118,11 @@ func set_up_huds():
 	p4_hud.cooldown_bar = $"Player 4 HUD/P4 Trick Cooldown Bar"
 	player_huds.append(p4_hud)
 	
-	#connect signal
+	#connect signal and set up HUD sprites
 	for i in game_manager.players.size():
 		game_manager.players[i].activate_trick_cooldown.connect(_activate_cooldown_bar)
+		player_huds[i].costume_sprite.texture = game_manager.players[i].sprite.texture 
+				
 	
 	#disable player 3 or 4 huds if necessary.
 	if Singleton.cpu_opponent_count < 2:

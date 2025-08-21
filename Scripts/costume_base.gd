@@ -8,6 +8,7 @@ class_name Costume
 signal on_hit(player: Costume)				#player sprite will shake and flash when hit by a trick. The appropriate funcs will be called
 signal activate_trick_cooldown(player_num: int)			#picked up by HUD to show cooldown bar and to start cooldown
 #@onready var hud: GameHUD = $HUD
+@onready var sprite: Sprite2D = $Sprite_Costume
 
 @export var costume_name: String
 @export var candy_amount: int
@@ -45,6 +46,10 @@ enum CostumeType { GHOST, KNIGHT, PRINCESS, WITCH }   #used for identifying & ex
 enum Direction { LEFT, RIGHT, UP, DOWN }				#used when tricks are activated so they can be launched in the direction player is facing.
 @export var direction: Direction
 
+#candy-specific variables
+#var throw_candy: bool
+#var candy_destinations: Array[Vector2] = []				#contains locations of where newly instantiated candy will be thrown
+
 #consts  
 const MAX_CANDY: int = 999
 const INIT_CANDY_DROP_AMOUNT: int = 5
@@ -63,8 +68,20 @@ func _process(delta: float) -> void:
 	#if time > last_hit_check_time + 0.2:
 		#last_hit_check_time = time
 		#on_hit.emit(self)
+	"""if throw_candy == true:
+		var game_manager:GameManager = get_parent()
+		for i in candy_destinations.size():
+			#get the latest new candy from candy list by counting backwards in array
+			var candy = game_manager.candy_list[candy_destinations.size() - (i + 1)]
+			var candy_dir: Vector2 = candy.global_position - self.global_position
+			var destination: Vector2 = candy.global_position
+			
+			#move candy from player's position to destination. Hitbox is temporarily disabled so that candy isn't taken by player
+			candy.hitbox.disabled = true
+			candy.global_position = self.global_position
+			candy.global_position.move_toward(destination, delta * 5)"""
+			
 	pass
-	
 
 #overridable function that will be used in inherhited nodes.	
 func use_trick() -> void:
@@ -93,17 +110,24 @@ func drop_candy(amount: int):
 	for i in amount:
 		#candy is sent to random positions around the player who got hit.
 		var candy: Candy = game_manager.candy_scene.instantiate()
-		var rand_x = randf_range(-10, 10)
-		var rand_y = randf_range(-10, 10)
+		var range: float = 50
+		var rand_x = randf_range(-range, range)
+		var rand_y = randf_range(-range, range)
 		
 		candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
-		while (candy.global_position - global_position).length() <= 1.1:
-			rand_x = randf_range(-10, 10)
-			rand_y = randf_range(-10, 10)
+		while (candy.global_position - global_position).length() <= 2:
+			rand_x = randf_range(-range, range)
+			rand_y = randf_range(-range, range)
 			candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
+		
+		#candy flies out of player
+		#candy_destinations.append(candy.global_position)
 			
 		game_manager.add_child(candy)
 		game_manager.candy_list.append(candy)
+	
+	#throw candy
+	#throw_candy = true
 
 func set_default_candy_taken(amount: int):
 	default_candy_taken = amount
