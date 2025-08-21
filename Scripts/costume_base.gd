@@ -9,6 +9,7 @@ signal on_hit(player: Costume)				#player sprite will shake and flash when hit b
 signal activate_trick_cooldown(player_num: int)			#picked up by HUD to show cooldown bar and to start cooldown
 #@onready var hud: GameHUD = $HUD
 @onready var sprite: Sprite2D = $Sprite_Costume
+@onready var candy_collect_ui: CandyCollectUI = $"Candy Collection Amount"
 
 @export var costume_name: String
 @export var candy_amount: int
@@ -58,6 +59,7 @@ const BASE_MOVE_SPEED: float = 150
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	trick_or_treat_sprite.visible = false
+	candy_collect_ui.visible = false
 	#set_default_candy_taken(1)
 	
 

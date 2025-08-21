@@ -9,6 +9,7 @@ func _on_body_entered(player: Costume) -> void:
 		return
 		
 	player.candy_amount += 1
+	player.candy_collect_ui.show_candy_collection(true, 1)
 	print("{0}'s candy is now {1}".format([player.costume_name, player.candy_amount]))
 	
 	#remove candy from candy list

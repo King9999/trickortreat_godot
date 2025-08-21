@@ -53,6 +53,7 @@ func _process(delta: float) -> void:
 			
 			player.candy_amount += player.candy_taken
 			candy_amount -= player.candy_taken
+			player.candy_collect_ui.show_candy_collection(true, player.candy_taken)
 			#print("{0} gained candy from {1}".format([player.costume_name, name]))
 			#print("{0} has {1} candy left".format([name, candy_amount]))
 			

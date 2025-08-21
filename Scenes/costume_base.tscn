@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdxcb48ykudp7"]
+[gd_scene load_steps=9 format=3 uid="uid://bdxcb48ykudp7"]
 
 [ext_resource type="Texture2D" uid="uid://ca656t6mccsoa" path="res://Sprites/Costumes/Ghost.png" id="2_eai3y"]
 [ext_resource type="Script" uid="uid://bek7l5luwlgfu" path="res://Scripts/costume_base.gd" id="3_0je84"]
 [ext_resource type="Texture2D" uid="uid://lkam1138gk1" path="res://Sprites/trickortreat_bubble.png" id="3_816r2"]
+[ext_resource type="Script" uid="uid://dsml7tkedxysy" path="res://Scripts/candy_collection.gd" id="4_hmtpd"]
+[ext_resource type="FontFile" uid="uid://dxcgk8flk1k3h" path="res://Fonts/KROEGER0665.TTF" id="4_ltyv7"]
+[ext_resource type="Texture2D" uid="uid://cuhruqax5kndg" path="res://Sprites/candy.png" id="5_hmtpd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0je84"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffc0n"]
+font = ExtResource("4_ltyv7")
 
 [node name="CostumeBase" type="CharacterBody2D"]
 script = ExtResource("3_0je84")
@@ -21,3 +27,19 @@ shape = SubResource("CircleShape2D_0je84")
 z_index = 2
 position = Vector2(0, -46)
 texture = ExtResource("3_816r2")
+
+[node name="Candy Collection Amount" type="Node2D" parent="."]
+z_index = 5
+position = Vector2(-18, -25)
+script = ExtResource("4_hmtpd")
+
+[node name="Label" type="Label" parent="Candy Collection Amount"]
+offset_left = 13.0
+offset_top = -12.0
+offset_right = 53.0
+offset_bottom = 11.0
+text = "+1"
+label_settings = SubResource("LabelSettings_ffc0n")
+
+[node name="Candy" type="Sprite2D" parent="Candy Collection Amount"]
+texture = ExtResource("5_hmtpd")
