@@ -134,9 +134,14 @@ func set_up_huds():
 func _process(delta: float) -> void:
 	for i in game_manager.players.size():
 		var player = game_manager.players[i]
+		
+		#update candy amount
+		player_huds[i].candy_amount.text = "x%02d" % player.candy_amount
+		
+		#update cooldown
 		if player.trick_on_cooldown:
 			var time = Time.get_unix_time_from_system()
-			player_huds[i].cooldown_bar.value = (time - player.last_cooldown_time) / player.trick_cooldown #- player.last_cooldown_time #* player_huds[i].cooldown_bar.max_value
+			player_huds[i].cooldown_bar.value = (time - player.last_cooldown_time) / player.trick_cooldown
 			#print(player_huds[i].cooldown_bar.value)
 			#print(time - player.last_cooldown_time)
 			if player_huds[i].cooldown_bar.value >= player_huds[i].cooldown_bar.max_value:

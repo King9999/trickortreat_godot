@@ -3,7 +3,11 @@ extends Area2D
 class_name Candy
 #@onready var hitbox: CollisionShape2D = $CollisionShape2D
 
-func _on_body_entered(player: Costume) -> void:
+func _on_body_entered(player: Costume) -> void:	
+	#prevent candy from being picked up if it's too close to a stunned player
+	if player.stunned:
+		return
+		
 	player.candy_amount += 1
 	print("{0}'s candy is now {1}".format([player.costume_name, player.candy_amount]))
 	

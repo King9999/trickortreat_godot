@@ -26,7 +26,7 @@ var last_invul_time: float             			#timestamp to get current time
 @export var invul_duration: float = 1.5       	#time in seconds. Determines how long player is invincible
 @export var invincible: bool
 var last_stun_time: float
-@export var stun_duration: float = 0.5          #time in seconds. Player can't move during this time
+@export var stun_duration: float = 0.7          #time in seconds. Player can't move during this time
 @export var stunned: bool
 @export var collecting_candy: bool			#is true when player is in front of house with candy
 @export var trick_duration: float            #how long a trick is active for.
@@ -94,8 +94,8 @@ func use_trick() -> void:
 
 #TODO: Add this function in the candy script!	
 #func add_candy(amount: int):
-#	if candy_amount + amount <= MAX_CANDY:
-#		candy_amount += amount
+	#if candy_amount + amount <= MAX_CANDY:
+		#candy_amount += amount
 	
 func drop_candy(amount: int):
 	#Can't drop more candy than player has
@@ -110,12 +110,14 @@ func drop_candy(amount: int):
 	for i in amount:
 		#candy is sent to random positions around the player who got hit.
 		var candy: Candy = game_manager.candy_scene.instantiate()
-		var range: float = 50
+		var range: float = 50						#range is in pixels
 		var rand_x = randf_range(-range, range)
 		var rand_y = randf_range(-range, range)
 		
 		candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)
-		while (candy.global_position - global_position).length() <= 2:
+		var vec_length = (candy.global_position - global_position).length()
+		print("Vector length: {0}".format([vec_length]))
+		while vec_length < 10:
 			rand_x = randf_range(-range, range)
 			rand_y = randf_range(-range, range)
 			candy.global_position = Vector2(global_position.x + rand_x, global_position.y + rand_y)

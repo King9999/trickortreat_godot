@@ -21,6 +21,7 @@ var last_candy_pickup_time : float
 @export var candy_amount_hidden : bool  #if true, players will not know how much candy a house has until they approach
 @export var can_stock_candy : bool  	#must be true in order to stock candy
 @export var candy_being_collected : bool
+@export var player_at_house: bool		#an additional check to ensure player remains at house to collect candy
 @export var player: Costume					#reference to player that's in front of house
 
 #consts
@@ -39,7 +40,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if candy_being_collected:
+	if candy_being_collected && player_at_house:
 		var time = Time.get_unix_time_from_system()
 		if time > last_candy_pickup_time + CANDY_PICKUP_RATE:
 			#player gets candy
@@ -66,16 +67,18 @@ func _process(delta: float) -> void:
 func _on_candy_pickup_area_entered(player: Costume) -> void:
 	#print("{0} is in front of house {1}".format([player.costume_name, name]))
 	#player shouts "trick or treat" and then collects candy at a fixed rate
-	if candy_amount <= 0 or candy_being_collected:
+	if candy_amount <= 0 or (player_at_house && candy_being_collected):
 		return
 	
 	self.player = player
 	#TODO: display "trick or treat for half a second
+	player_at_house = true;
 	player.call_trick_or_treat(true)
 	await get_tree().create_timer(0.8).timeout
 	player.call_trick_or_treat(false)
 	#TODO: player collects candy until they move away from house or house is empty
-	candy_being_collected = true;
+	if player_at_house:
+		candy_being_collected = true;
 	#print("{0} is collecting candy in front of house {1}".format([player.costume_name, name]))
 
 #adds candy to house	
@@ -94,4 +97,5 @@ func lights_off():
 
 func _on_candy_pickup_area_exited(player: Costume) -> void:
 	candy_being_collected = false;
+	player_at_house = false;
 	print("{0} has left house {1}".format([player.costume_name, name]))
