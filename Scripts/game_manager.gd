@@ -129,5 +129,7 @@ func _physics_process(delta: float) -> void:
 		player_1.global_position += input_p1 * delta * player_1.move_speed
 		player_2.global_position += input_p2 * delta * player_2.move_speed
 		
-		player_1.move_and_slide()
-		player_2.move_and_slide()
+		#Using move_and_collide instead of move_and_slide, which appears to be used solely to move other nodes when a collision occurs.
+		#move_and_collide doesn't have this behaviour.
+		player_1.move_and_collide(input_p1 * delta)
+		player_2.move_and_collide(input_p2 * delta)

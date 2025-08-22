@@ -5,6 +5,7 @@ and if the candy amount is hidden from the player until they approach the house.
 """
 
 extends Node2D
+class_name HouseManager
 
 @export var houses : Array[House] = []
 @export var houses_with_candy: int

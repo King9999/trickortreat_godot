@@ -23,6 +23,7 @@ var last_candy_pickup_time : float
 @export var candy_being_collected : bool
 @export var player_at_house: bool		#an additional check to ensure player remains at house to collect candy
 @export var player: Costume					#reference to player that's in front of house
+@onready var hitbox: StaticBody2D = $HouseCollision
 
 #consts
 const MAX_CANDY_AMOUNT: int = 10;

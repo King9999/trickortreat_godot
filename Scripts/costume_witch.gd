@@ -17,4 +17,4 @@ func _ready() -> void:
 
 	
 func use_trick():
-	magic_shot.enable_magic_shot(true)
+	magic_shot.enable_magic_shot(true, direction_vector)

@@ -18,7 +18,8 @@ texture = ExtResource("2_abn3v")
 [node name="Collison" parent="." index="1"]
 position = Vector2(0, 0)
 
-[node name="Magic Shot" type="Area2D" parent="." index="3"]
+[node name="Magic Shot" type="Area2D" parent="." index="4"]
+input_pickable = false
 script = ExtResource("4_xr7h6")
 
 [node name="Sprite - Magic" type="Sprite2D" parent="Magic Shot" index="0"]
