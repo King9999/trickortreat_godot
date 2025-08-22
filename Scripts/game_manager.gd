@@ -131,7 +131,24 @@ func _physics_process(delta: float) -> void:
 		player_1.global_position += input_p1 * delta * player_1.move_speed
 		player_2.global_position += input_p2 * delta * player_2.move_speed
 		
+		#boundary check
+		player_1.global_position = _check_player_boundaries(player_1.global_position)
+		player_2.global_position = _check_player_boundaries(player_2.global_position)
+		
 		#Using move_and_collide instead of move_and_slide, which appears to be used solely to move other nodes when a collision occurs.
 		#move_and_collide doesn't have this behaviour.
 		player_1.move_and_collide(input_p1 * delta)
 		player_2.move_and_collide(input_p2 * delta)
+
+##Checks if a player crosses the viewport or the area leading to the HUD
+func _check_player_boundaries(vector: Vector2) -> Vector2:
+	if vector.x > camera.get_viewport().size.x / 2:
+		vector.x = camera.get_viewport().size.x / 2
+	if vector.x < -camera.get_viewport().size.x / 2:
+		vector.x = -camera.get_viewport().size.x / 2
+	if vector.y > camera.get_viewport().size.y / 2:
+		vector.y = camera.get_viewport().size.y / 2
+	if vector.y < boundary.global_position.y:
+		vector.y = boundary.global_position.y
+	
+	return vector
