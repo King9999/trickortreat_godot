@@ -41,7 +41,7 @@ costume_scenes = Array[PackedScene]([ExtResource("6_6bp64"), ExtResource("5_kry3
 z_index = -100
 texture = ExtResource("1_jjgbg")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Game Camera" type="Camera2D" parent="."]
 
 [node name="Nav Mesh" type="NavigationRegion2D" parent="."]
 position = Vector2(-2, 3)
@@ -368,3 +368,6 @@ step = 0.01
 fill_mode = 4
 texture_progress = ExtResource("16_fevyy")
 tint_progress = Color(0, 0.437703, 0.900895, 1)
+
+[node name="UI Boundary" type="Node2D" parent="."]
+position = Vector2(-358, -337)

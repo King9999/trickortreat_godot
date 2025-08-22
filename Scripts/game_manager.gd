@@ -7,6 +7,8 @@ class_name GameManager
 
 @onready var timer: Game_Timer = $Timer
 @onready var countdown: Countdown = $Countdown
+@onready var camera: Camera2D = $"Game Camera"
+@onready var boundary: Node2D = $"UI Boundary"  #The node standing between game screen and UI. Nothing can pass it.
 
 #player start positions
 @onready var player_position1: Node2D = $"Player 1 Start Position"
