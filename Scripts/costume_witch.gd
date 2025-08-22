@@ -17,4 +17,6 @@ func _ready() -> void:
 
 	
 func use_trick():
+	if trick_active || trick_on_cooldown:
+		return
 	magic_shot.enable_magic_shot(true, direction_vector)

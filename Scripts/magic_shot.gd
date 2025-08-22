@@ -35,6 +35,7 @@ func enable_magic_shot(toggle: bool, direction: Vector2 = Vector2(0,0)):
 		process_mode = Node.PROCESS_MODE_DISABLED	#must use this to completely disable a node instead of set_process
 	else:
 		process_mode = Node.PROCESS_MODE_ALWAYS
+		witch.trick_active = true	
 		if direction.x > 0:
 			direction.x = 1			#set to 1 in case we're moving diagonally
 			#if y is not 0, we change to 0 because diagonal directions are ignored.
@@ -74,10 +75,11 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		#var house: House			#TODO: why is this null?
 		#print(house) 
-		if (body != null && body is not Costume):		
+		if (body != null && body is not Costume):		#Hit a house. I don't like not being able to reference the house directly
 			#house was hit, destroy magic
 			print("magic hit house")
 			enable_magic_shot(false)
+			witch.end_trick()
 				 
 		var costume = hit_list[i] as Costume
 		if (costume != null && !costume.stunned):
