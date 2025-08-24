@@ -9,6 +9,7 @@ class_name GameManager
 @onready var countdown: Countdown = $Countdown
 @onready var camera: Camera2D = $"Game Camera"
 @onready var boundary: Node2D = $"UI Boundary"  #The node standing between game screen and UI. Nothing can pass it.
+@onready var house_manager: HouseManager = $"House Manager"
 
 #player start positions
 @onready var player_position1: Node2D = $"Player 1 Start Position"
@@ -26,16 +27,20 @@ var game_started: bool
 
 #costumes
 @export var costume_scenes: Array[PackedScene] = []
-@export var players: Array[Costume] = []
+@export var players: Array[Costume] = []			#Used by AI for tracking enemy players.
 
 enum Human_Player { PLAYER_ONE, PLAYER_TWO }
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Singleton.game_manager = self
 	#Timer setup
 	timer.set_timer(game_time)
 	countdown.set_countdown_time(4)
 	countdown.start_game.connect(_start_game)
+	
+	##########house setup###########
+	house_manager.set_up_houses()
 	
 	######player setup######
 	#set up the first 2 players
@@ -92,18 +97,22 @@ func _set_up_players(selection: Singleton.Selection):
 		player.global_position = player_position1.global_position
 		player.player_type = Costume.Player.HUMAN
 		player.player_num = 0
+		#player.ai_node.toggle_ai(false)
 	elif players.size() == 2:
 		player.global_position = player_position2.global_position
 		player.player_type = Costume.Player.HUMAN
 		player.player_num = 1
+		#player.enable_ai.emit(false)
 	elif players.size() == 3:
 		player.global_position = player_position3.global_position
 		player.player_type = Costume.Player.CPU
 		player.player_num = 2
+		#player.toggle_ai(true)
 	else:
 		player.global_position = player_position4.global_position
 		player.player_type = Costume.Player.CPU
 		player.player_num = 3
+		#player.toggle_ai(true)
 			
 	add_child(player) #important step when instantiating nodes.
 

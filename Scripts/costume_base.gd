@@ -7,9 +7,11 @@ class_name Costume
 
 signal on_hit(player: Costume)				#player sprite will shake and flash when hit by a trick. The appropriate funcs will be called
 signal activate_trick_cooldown(player_num: int)			#picked up by HUD to show cooldown bar and to start cooldown
+signal enable_ai(enabled: bool)
 #@onready var hud: GameHUD = $HUD
 @onready var sprite: Sprite2D = $Sprite_Costume
 @onready var candy_collect_ui: CandyCollectUI = $"Candy Collection Amount"
+@onready var ai_node: PlayerAI = $"Player AI"
 
 @export var costume_name: String
 @export var candy_amount: int
@@ -58,8 +60,10 @@ const BASE_MOVE_SPEED: float = 150
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#ai_node.top_level = true
 	trick_or_treat_sprite.visible = false
 	candy_collect_ui.visible = false
+	print(player_type)
 	#set_default_candy_taken(1)
 	
 
@@ -212,3 +216,9 @@ func _set_invincible(player: Costume):
 	sprite.visible = true
 	hitbox.disabled = false
 	invincible = false
+
+#func toggle_ai(toggle: bool):
+	#if toggle == false:
+		#ai_node.process_mode = Node.PROCESS_MODE_DISABLED	#must use this to completely disable a node instead of set_process
+	#else:
+		#ai_node.process_mode = Node.PROCESS_MODE_ALWAYS

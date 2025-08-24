@@ -25,6 +25,8 @@ var cpu_costumes: Array[Singleton.Selection] = []
 #scene names for easy reference
 var cpu_select_scene: String = "res://Scenes/cpu_select.tscn"
 var main_game_scene: String = "res://Scenes/main.tscn"
+var house_manager: HouseManager
+var game_manager: GameManager
 
 #game Parameters
 var json_param			#holds costume data such as trick cooldown, candy taken, etc.

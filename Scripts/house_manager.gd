@@ -21,11 +21,12 @@ const MAX_CANDY_AMOUNT: int = 10
 
 func _ready() -> void:
 	#get all of house manager's children nodes, which are the houses
-	houses.append_array(get_children())
+	#houses.append_array(get_children())
 	
 	#connect each house's signal to house manager
-	for house in houses:
-		house.on_house_empty.connect(_turn_off_lights)
+	#for house in houses:
+		#house.on_house_empty.connect(_turn_off_lights)
+	Singleton.house_manager = self
 	
 
 func _process(delta: float) -> void:
@@ -70,3 +71,11 @@ func _turn_off_lights(house: House):
 	house.lights_off()
 	#print("{0}'s lights are now off.".format([house.name]))
 	houses_with_candy -= 1
+
+func set_up_houses():
+	#get all of house manager's children nodes, which are the houses
+	houses.append_array(get_children())
+	
+	#connect each house's signal to house manager
+	for house in houses:
+		house.on_house_empty.connect(_turn_off_lights)

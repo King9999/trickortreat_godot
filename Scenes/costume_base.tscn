@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdxcb48ykudp7"]
+[gd_scene load_steps=10 format=3 uid="uid://bdxcb48ykudp7"]
 
 [ext_resource type="Texture2D" uid="uid://ca656t6mccsoa" path="res://Sprites/Costumes/Ghost.png" id="2_eai3y"]
 [ext_resource type="Script" uid="uid://bek7l5luwlgfu" path="res://Scripts/costume_base.gd" id="3_0je84"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dsml7tkedxysy" path="res://Scripts/candy_collection.gd" id="4_hmtpd"]
 [ext_resource type="FontFile" uid="uid://dxcgk8flk1k3h" path="res://Fonts/KROEGER0665.TTF" id="4_ltyv7"]
 [ext_resource type="Texture2D" uid="uid://cuhruqax5kndg" path="res://Sprites/candy.png" id="5_hmtpd"]
+[ext_resource type="Script" uid="uid://dl7vnvkss238r" path="res://Scripts/player_ai.gd" id="7_ffc0n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0je84"]
 
@@ -43,3 +44,9 @@ label_settings = SubResource("LabelSettings_ffc0n")
 
 [node name="Candy" type="Sprite2D" parent="Candy Collection Amount"]
 texture = ExtResource("5_hmtpd")
+
+[node name="Player AI" type="Node2D" parent="."]
+script = ExtResource("7_ffc0n")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Player AI"]
+debug_enabled = true

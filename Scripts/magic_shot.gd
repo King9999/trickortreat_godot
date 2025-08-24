@@ -16,21 +16,21 @@ var offset: float = 50
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	top_level = true		#this node can be moved independently of the parent.
-	print(game_manager.camera.get_viewport().size.x)
+	#print(game_manager.camera.get_viewport().size.x)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#print("active")
 	#var new_pos: Vector2 = Vector2(global_position.x + vx * move_speed * delta, global_position.y + vy * move_speed * delta)
 	global_position = Vector2(global_position.x + vx * move_speed * delta, global_position.y + vy * move_speed * delta)
-	print(global_position)
+	#print(global_position)
 	
 	#rotate shot
 	sprite.rotation_degrees += 8
 	
 	#if magic goes off screen, destroy it
 	if _magic_out_of_bounds():
-		print("shot destroyed")
+		#print("shot destroyed")
 		enable_magic_shot(false)
 		witch.end_trick()
 
@@ -71,7 +71,7 @@ func enable_magic_shot(toggle: bool, direction: Vector2 = Vector2(0,0)):
 func _on_body_entered(body: Node2D) -> void:
 	#TODO: must check if shot hit a player or a house. If player was hit, shot keeps going.
 	var hit_list = get_overlapping_bodies()
-	print(hit_list)
+	#print(hit_list)
 	
 	#Check what was hit
 	for i in hit_list.size():
@@ -82,7 +82,7 @@ func _on_body_entered(body: Node2D) -> void:
 		#print(house) 
 		if (body != null && body is not Costume):		#Hit a house. I don't like not being able to reference the house directly
 			#house was hit, destroy magic
-			print("magic hit house")
+			#print("magic hit house")
 			enable_magic_shot(false)
 			witch.end_trick()
 				 

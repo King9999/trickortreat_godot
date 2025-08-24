@@ -14,6 +14,7 @@ signal on_house_empty(house: House)
 @export var house_light_on: String = "res://Sprites/HouseOn.png"
 @export var house_light_off: String = "res://Sprites/HouseOff.png"
 @onready var house_sprite: Sprite2D = $House_Light
+@onready var candy_pickup_area: CollisionShape2D = $"Candy Pickup Area/Trigger"
 @export var candy_amount : int = 0
 @export var restock_time : float = 0    #time in seconds that must pass before house has candy. This value is randomized for each house.
 var last_restock_time : float           #gets timestamp of current time to enable cooldown for restocking candy
