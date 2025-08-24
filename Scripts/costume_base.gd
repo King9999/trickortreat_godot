@@ -8,6 +8,7 @@ class_name Costume
 signal on_hit(player: Costume)				#player sprite will shake and flash when hit by a trick. The appropriate funcs will be called
 signal activate_trick_cooldown(player_num: int)			#picked up by HUD to show cooldown bar and to start cooldown
 signal enable_ai(enabled: bool)
+
 #@onready var hud: GameHUD = $HUD
 @onready var sprite: Sprite2D = $Sprite_Costume
 @onready var candy_collect_ui: CandyCollectUI = $"Candy Collection Amount"

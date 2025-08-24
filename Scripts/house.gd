@@ -65,6 +65,9 @@ func _process(delta: float) -> void:
 			if candy_amount <= 0:
 				#house emits a signal that house manager picks up to turn off lights.
 				on_house_empty.emit(self)
+				
+				#if player is CPU, player moves on to next house.
+				
 
 ## Called when a player enters the HouseCollision node. 
 func _on_candy_pickup_area_entered(player: Costume) -> void:

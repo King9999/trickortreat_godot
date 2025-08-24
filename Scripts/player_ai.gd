@@ -7,10 +7,12 @@ Contains behaviours for AI-controlled players. Behaviour works as follows:
 extends Node2D
 class_name PlayerAI
 
+signal house_empty()				#when a house runs out of candy, alerts CPU to move on to next house.
+
 @onready var player: Costume = get_parent()
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D		#used to move CPU players
 enum State { IDLE, HOUSE_SEARCH, COLLECTING_CANDY, ATTACKING_PLAYER, PICK_UP_DROPPED_CANDY }
-var player_state: State
+@export var player_state: State
 @export var target_player: Costume				#the enemy player currently being pursued/attacked
 @export var target_house: House
 @export var detect_range: float = 200
@@ -26,7 +28,8 @@ func _ready() -> void:
 		return
 		
 	#_change_state(State.IDLE)
-	
+
+
 
 
 func _process(delta: float) -> void:
@@ -43,6 +46,9 @@ func _process(delta: float) -> void:
 	#search for houses after game starts
 	if player_state == State.IDLE:
 		_change_state(State.HOUSE_SEARCH)
+	
+	if _house_out_of_candy(target_house):
+		pass
 
 func _physics_process(delta: float) -> void:
 	if player.player_type == Costume.Player.HUMAN:
@@ -51,6 +57,14 @@ func _physics_process(delta: float) -> void:
 	#movement check
 	if !nav_agent.is_navigation_finished():
 		_move(player, delta)
+	#else:
+		##if we're at house, change state
+		#if target_house != null && target_house.player_at_house:
+			#if target_house.candy_amount > 0:
+				#player_state = State.COLLECTING_CANDY
+			#else:
+				#player_state = State.IDLE
+		  
 		
 
 func _change_state(state: State):
@@ -67,7 +81,10 @@ func _change_state(state: State):
 				if house_manager.houses[i].candy_amount > target_house.candy_amount:
 					target_house = house_manager.houses[i]
 			
-			#once house is found, move towards the house's trigger
+			#once house is found, move towards the house's trigger. I divide the Y value so that the CPU doesn't clip through the house.
+			if !target_house.has_connections("on_house_empty"):
+				target_house.on_house_empty.connect(go_idle())
+
 			nav_agent.target_position = Vector2(target_house.candy_pickup_area.global_position.x, target_house.candy_pickup_area.global_position.y \
 				+ target_house.candy_pickup_area.shape.get_rect().size.y / 1.5)
 			print("{0}'s target house pos: {1}".format([player.costume_name, nav_agent.target_position]))
@@ -83,5 +100,13 @@ func _move(player: Costume, delta: float):
 	var move_dir = player.global_position.direction_to(move_pos)
 	var movement = move_dir * player.move_speed * delta
 	player.translate(movement)
+
+func _house_out_of_candy(house: House) -> bool:
+	return player_state == State.COLLECTING_CANDY && house.candy_amount <= 0
+
+func go_idle():
+	print("ping!")
+	player_state = State.IDLE
+ 
 			
 	
