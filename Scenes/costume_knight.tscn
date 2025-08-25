@@ -12,21 +12,9 @@ size = Vector2(72, 7)
 [node name="Knight" instance=ExtResource("1_oxhh8")]
 script = ExtResource("2_tv4cp")
 costume_name = "Knight"
-candy_amount = 0
 candy_drop_amount = 2
-candy_taken = 1
-default_candy_taken = 0
 move_speed = 120.0
-direction_vector = Vector2(0, 0)
-invul_duration = 1.5
-invincible = false
-stun_duration = 0.7
-stunned = false
 collecting_candy = true
-trick_duration = 0.0
-trick_cooldown = 0.0
-player_type = 0
-direction = 0
 
 [node name="Sprite_Costume" parent="." index="0"]
 texture = ExtResource("2_523sj")

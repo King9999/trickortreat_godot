@@ -20,8 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://cxdccylve3ie" path="res://Sprites/cooldownbar.png" id="16_fevyy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bo1nx"]
-vertices = PackedVector2Array(475, -83, 475, -203, 502, -310, 502, 422, 474, 261, 474, 141, 307, 373, -494, 422, 171, 373, -221, 373, -357, 373, 339, -83, 338, 141, 147, 56, 147, -64, 338, 261, 307, 253, -357, 253, -494, 197, -365, 197, 275, -310, 339, -203, 275, -219, -165, -227, -165, -310, 139, -310, 139, -219, 11, -64, 0, -64, 11, 56, 0, 56, 171, 253, -221, 253, -365, 77, -494, 77, -494, -59, -373, -59, -136, 56, -373, -179, -494, -179, -494, -310, -301, -310, -301, -227, -136, -64)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 3, 7, 8), PackedInt32Array(9, 8, 7), PackedInt32Array(10, 9, 7), PackedInt32Array(11, 0, 5, 12, 13, 14), PackedInt32Array(4, 3, 6, 15), PackedInt32Array(15, 6, 16, 12), PackedInt32Array(17, 10, 7, 18, 19), PackedInt32Array(20, 2, 1, 21, 22), PackedInt32Array(23, 24, 25, 26, 27, 28), PackedInt32Array(27, 29, 30, 28), PackedInt32Array(13, 31, 8, 9, 32, 29), PackedInt32Array(33, 34, 35, 36, 37), PackedInt32Array(38, 39, 40, 41, 42), PackedInt32Array(26, 22, 21, 11, 14, 27), PackedInt32Array(23, 28, 43), PackedInt32Array(32, 17, 19, 33, 37, 30), PackedInt32Array(13, 12, 16, 31), PackedInt32Array(30, 29, 32), PackedInt32Array(42, 23, 43, 37, 36, 38)])
+vertices = PackedVector2Array(10, 69, 154, 69, 482, 141, 338, 141, 482, -67, 482, -203, 502, -310, 502, 422, 314, 389, -494, 422, 170, 389, -214, 389, -358, 389, 482, 277, 338, 277, 314, 253, -357, 253, -494, 213, -358, 213, 282, -310, 339, -203, 282, -203, 338, -67, -136, -64, -158, -211, -158, -310, 138.789, -310, 138, -203, 10, -67, -494, -179, -494, -310, -301.273, -310, -302, -211, -366, -179, 171, 253, -214, 253, -134, 69, -358, 77, -494, 77, -494, -43, -366, -43, 154, -67, 11, -64)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 7, 9, 10), PackedInt32Array(11, 10, 9), PackedInt32Array(12, 11, 9), PackedInt32Array(13, 7, 8, 14), PackedInt32Array(14, 8, 15, 3), PackedInt32Array(16, 12, 9, 17, 18), PackedInt32Array(19, 6, 5, 20), PackedInt32Array(21, 19, 20, 22), PackedInt32Array(23, 24, 25, 26, 27, 28), PackedInt32Array(29, 30, 31, 32, 33), PackedInt32Array(0, 34, 10, 11, 35, 36), PackedInt32Array(37, 38, 39, 40), PackedInt32Array(0, 3, 15, 34), PackedInt32Array(36, 35, 16, 18, 37, 23), PackedInt32Array(23, 37, 40, 33, 32, 24), PackedInt32Array(2, 1, 41, 22), PackedInt32Array(27, 21, 22, 41), PackedInt32Array(7, 13, 2), PackedInt32Array(4, 7, 2), PackedInt32Array(22, 4, 2), PackedInt32Array(28, 27, 41, 42), PackedInt32Array(0, 28, 42), PackedInt32Array(1, 0, 42), PackedInt32Array(1, 42, 0)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-504, -320, 512, -320, 512, 432, -504, 432)])
 
 [sub_resource type="FontVariation" id="FontVariation_d1ilt"]
@@ -48,61 +48,61 @@ position = Vector2(-2, 3)
 navigation_polygon = SubResource("NavigationPolygon_bo1nx")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Nav Mesh"]
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 10, -67, 10, 69, -134, 69)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(147, 0)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -67, 7, 69, -137, 69)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(-165, -283)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(-373, -115)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(-365, 141)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(-221, 317)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D7" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(307, 317)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D8" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(474, 205)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 8, -64, 8, 72, -136, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D9" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(475, -139)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="NavigationObstacle2D10" type="NavigationObstacle2D" parent="Nav Mesh"]
 position = Vector2(275, -275)
-vertices = PackedVector2Array(-136, -64, 0, -64, 0, 56, -136, 56)
+vertices = PackedVector2Array(-136, -64, 7, -64, 7, 72, -137, 72)
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 

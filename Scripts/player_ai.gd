@@ -16,6 +16,7 @@ enum State { IDLE, HOUSE_SEARCH, COLLECTING_CANDY, ATTACKING_PLAYER, PICK_UP_DRO
 @export var target_player: Costume				#the enemy player currently being pursued/attacked
 @export var target_house: House
 @export var detect_range: float = 200
+@export var attack_range: float = 30		#minimum distance in pixels for the CPU to hit enemy player with trick. Witch has highest range
 @export var detect_rate: float = 0.2		#the rate at which the CPU searches for players or candy
 
 # Called when the node enters the scene tree for the first time.
@@ -57,13 +58,16 @@ func _physics_process(delta: float) -> void:
 	#movement check
 	if !nav_agent.is_navigation_finished():
 		_move(player, delta)
-	#else:
-		##if we're at house, change state
-		#if target_house != null && target_house.player_at_house:
-			#if target_house.candy_amount > 0:
-				#player_state = State.COLLECTING_CANDY
-			#else:
-				#player_state = State.IDLE
+		
+		#check for enemy players along the way. 
+		#If player is in range, stop targetting house and target player instead
+	else:
+		#if we're at house, change state
+		if target_house != null && target_house.player_at_house:
+			if target_house.candy_amount > 0:
+				player_state = State.COLLECTING_CANDY
+			else:
+				player_state = State.IDLE
 		  
 		
 
@@ -82,8 +86,8 @@ func _change_state(state: State):
 					target_house = house_manager.houses[i]
 			
 			#once house is found, move towards the house's trigger. I divide the Y value so that the CPU doesn't clip through the house.
-			if !target_house.has_connections("on_house_empty"):
-				target_house.on_house_empty.connect(go_idle())
+			#if !target_house.has_connections("on_house_empty"):
+				#target_house.on_house_empty.connect(go_idle()) #TODO: Signal not working
 
 			nav_agent.target_position = Vector2(target_house.candy_pickup_area.global_position.x, target_house.candy_pickup_area.global_position.y \
 				+ target_house.candy_pickup_area.shape.get_rect().size.y / 1.5)
