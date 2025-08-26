@@ -25,6 +25,10 @@ var vy: float
 var base_move_speed: float
 @export var direction_vector: Vector2				#tracks which way player is facing.
 
+@export_category("CPU Variables")
+@export var detect_range: float = 200
+@export var attack_range: float = 30
+
 @export_category("Timers & Booleans")
 var last_invul_time: float             			#timestamp to get current time
 @export var invul_duration: float = 1.5       	#time in seconds. Determines how long player is invincible
@@ -47,6 +51,7 @@ enum Player { HUMAN, CPU }
 var player_num: int							#corresponds to the player_huds array hud.gd
 
 enum CostumeType { GHOST, KNIGHT, PRINCESS, WITCH }   #used for identifying & extracting parameters in parameters.json
+@export var costume_type: CostumeType
 enum Direction { LEFT, RIGHT, UP, DOWN }				#used when tricks are activated so they can be launched in the direction player is facing.
 @export var direction: Direction
 
@@ -168,6 +173,8 @@ func set_up_parameters(costume: CostumeType):
 	move_speed = base_move_speed
 	trick_cooldown = Singleton.json_param[costume].trick_cooldown
 	trick_duration = Singleton.json_param[costume].trick_duration
+	attack_range = Singleton.json_param[costume].attack_range
+	detect_range = Singleton.json_param[costume].detect_range
 	set_default_candy_taken(candy_taken)
 
 ##Causes player to shake and be stunned for a duration.

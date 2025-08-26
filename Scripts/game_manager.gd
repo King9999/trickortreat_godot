@@ -81,12 +81,16 @@ func _set_up_players(selection: Singleton.Selection):
 	match(selection):
 		Singleton.Selection.GHOST:
 			players.append(costume_scenes[Singleton.Selection.GHOST].instantiate())
+			players[players.size() - 1].costume_type = Costume.CostumeType.GHOST
 		Singleton.Selection.KNIGHT:
 			players.append(costume_scenes[Singleton.Selection.KNIGHT].instantiate())
+			players[players.size() - 1].costume_type = Costume.CostumeType.KNIGHT
 		Singleton.Selection.PRINCESS:
 			players.append(costume_scenes[Singleton.Selection.PRINCESS].instantiate())
+			players[players.size() - 1].costume_type = Costume.CostumeType.PRINCESS
 		Singleton.Selection.WITCH:
-			players.append(costume_scenes[Singleton.Selection.WITCH].instantiate())			
+			players.append(costume_scenes[Singleton.Selection.WITCH].instantiate())
+			players[players.size() - 1].costume_type = Costume.CostumeType.WITCH			
 	
 	#ensure the player is human-controlled.
 	var player: Costume = players[players.size() - 1]
