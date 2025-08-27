@@ -19,7 +19,7 @@ func _set_default_candy_taken(amount: int):
 
 #Generates a "BOO" sprite. Any target in range of it drops double candy.
 func use_trick():
-	if trick_active || trick_on_cooldown:
+	if trick_active || trick_on_cooldown || stunned:
 		return
 	
 	trick_active = true

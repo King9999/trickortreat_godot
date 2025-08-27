@@ -14,6 +14,9 @@ func _ready() -> void:
 
 		
 func use_trick():
+	if trick_active || trick_on_cooldown || stunned:
+		return
+		
 	question_mark.visible = true
 	await get_tree().create_timer(2).timeout
 	question_mark.visible = false

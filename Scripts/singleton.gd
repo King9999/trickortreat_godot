@@ -28,6 +28,8 @@ var main_game_scene: String = "res://Scenes/main.tscn"
 var house_manager: HouseManager
 var game_manager: GameManager
 
+var targeted_houses: Array[bool] = []	#Used to track which houses are being targeted by CPU players.	
+
 #game Parameters
 var json_param			#holds costume data such as trick cooldown, candy taken, etc.
 
@@ -37,6 +39,8 @@ func _ready() -> void:
 	json_param = JSON.parse_string(file.get_as_text())
 	file.close()
 	#print(json_param[0].costume_name)
+	for i in 10:
+		targeted_houses.append(false)
 	
 
 #Gets a random opponent for 3-player games (1 CPU opponent)

@@ -1,42 +1,42 @@
 [
   {
-    "costume_name": "Ghost",
-    "candy_taken": 1,
-    "candy_drop_amount": 5,
-    "trick_duration": 1,
-    "trick_cooldown": 8,
-    "move_speed": 150,
-    "attack_range": 30,
-    "detect_range": 100
+	"costume_name": "Ghost",
+	"candy_taken": 1,
+	"candy_drop_amount": 5,
+	"trick_duration": 1,
+	"trick_cooldown": 8,
+	"move_speed": 150,
+	"attack_range": 70,
+	"detect_range": 100
   },
   {
-    "costume_name": "Knight",
-    "candy_taken": 1,
-    "candy_drop_amount": 2,
-    "trick_duration": 0.3,
-    "trick_cooldown": 0.7,
-    "move_speed": 120,
-    "attack_range": 30,
-    "detect_range": 100
+	"costume_name": "Knight",
+	"candy_taken": 1,
+	"candy_drop_amount": 2,
+	"trick_duration": 0.3,
+	"trick_cooldown": 0.7,
+	"move_speed": 120,
+	"attack_range": 70,
+	"detect_range": 100
   },
   {
-    "costume_name": "Princess",
-    "candy_taken": 2,
-    "candy_drop_amount": 5,
-    "trick_duration": 2,
-    "trick_cooldown": 1,
-    "move_speed": 165,
-    "attack_range": 0,
-    "detect_range": 0
+	"costume_name": "Princess",
+	"candy_taken": 2,
+	"candy_drop_amount": 5,
+	"trick_duration": 2,
+	"trick_cooldown": 1,
+	"move_speed": 165,
+	"attack_range": 0,
+	"detect_range": 0
   },
   {
-    "costume_name": "Witch",
-    "candy_taken": 1,
-    "candy_drop_amount": 5,
-    "trick_duration": 0,
-    "trick_cooldown": 5,
-    "move_speed": 135,
-    "attack_range": 100,
-    "detect_range": 150
+	"costume_name": "Witch",
+	"candy_taken": 1,
+	"candy_drop_amount": 5,
+	"trick_duration": 0,
+	"trick_cooldown": 5,
+	"move_speed": 135,
+	"attack_range": 200,
+	"detect_range": 250
   }
 ]

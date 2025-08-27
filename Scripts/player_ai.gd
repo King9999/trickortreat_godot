@@ -15,6 +15,7 @@ enum State { IDLE, HOUSE_SEARCH, COLLECTING_CANDY, ATTACKING_PLAYER, PICK_UP_DRO
 @export var player_state: State
 @export var target_player: Costume				#the enemy player currently being pursued/attacked
 @export var target_house: House
+@export var target_candy: Candy
 #@export var detect_range: float = 200
 #@export var attack_range: float = 30		#minimum distance in pixels for the CPU to hit enemy player with trick. Witch has highest range
 @export var detect_rate: float = 0.2		#the rate at which the CPU searches for players or candy
@@ -47,8 +48,8 @@ func _process(delta: float) -> void:
 	if player_state == State.IDLE:
 		_change_state(State.HOUSE_SEARCH)
 	
-	if _house_out_of_candy(target_house):
-		pass
+	#if _house_out_of_candy(target_house):
+		#pass
 
 func _physics_process(delta: float) -> void:
 	if player.player_type == Costume.Player.HUMAN:
@@ -61,34 +62,31 @@ func _physics_process(delta: float) -> void:
 		#check for enemy players along the way. 
 		#If player is in range, stop targetting house and target player instead.
 		#Princess never targets other players
-		var time = Time.get_unix_time_from_system()
-		if time > last_detect_time + detect_rate:
-			var i = 0
-			var target_found: bool = false
-			while !target_found && i < Singleton.game_manager.players.size():
-				if Singleton.game_manager.players[i] == player:		#don't want to target self
-					i += 1
-					continue
-					
-				var distance = player.global_position.distance_to(Singleton.game_manager.players[i].global_position)
-				if distance <= player.detect_range:
-					#player is close, pursue
-					set_target_player(Singleton.game_manager.players[i])
-					#target_player = Singleton.game_manager.players[i]
-					#target_house = null
-					player_state = State.ATTACKING_PLAYER
-					target_found = true
-					print("target found")
-				else:
-					i += 1
+		_look_for_nearby_players()
+		
+		#if a targeted house runs out of candy on our way there, change targets
+		if target_house != null && target_house.candy_amount <= 0:
+			_go_idle()
 	else:
 		#if we're at house, change state
 		if target_house != null && target_house.player_at_house:
 			if target_house.candy_amount > 0:
 				player_state = State.COLLECTING_CANDY
 			else:
-				player_state = State.IDLE
-		  
+				_go_idle()
+		else:
+			_go_idle()
+	
+	#check if near a targeted enemy player
+	_check_distance_to_target_player()
+	
+	#check for dropped candy only if not targeting a player or a house
+	if target_house == null && target_player == null:
+		_look_for_dropped_candy(Singleton.game_manager.candy_list)
+	
+	#if at any point the CPU is stunned, they go idle so that they can do another action.
+	if (player.stunned):
+		_go_idle()	  
 		
 
 func _change_state(state: State):
@@ -98,10 +96,11 @@ func _change_state(state: State):
 			#check all houses and get the one with the most candy
 			var house_manager = Singleton.house_manager
 			target_house = house_manager.houses[0]
-			for i in range(1, house_manager.houses.size()):		#if I want i to start from non-zero, must use range
-				if house_manager.houses[i].candy_amount <= 0:
-					continue
-					
+			for i in range(1, house_manager.houses.size()):				#if I want i to start from non-zero, must use range
+				#Ignore houses targeted by another CPU player or empty houses.
+				if house_manager.houses[i].candy_amount <= 0 || Singleton.targeted_houses[i] == true:
+					continue	
+				
 				if house_manager.houses[i].candy_amount > target_house.candy_amount:
 					target_house = house_manager.houses[i]
 			
@@ -109,7 +108,7 @@ func _change_state(state: State):
 			#if !target_house.has_connections("on_house_empty"):
 				#target_house.on_house_empty.connect(go_idle()) #TODO: Signal not working
 			
-			set_target_house(target_house)
+			_set_target_house(target_house)
 			#nav_agent.target_position = Vector2(target_house.candy_pickup_area.global_position.x, target_house.candy_pickup_area.global_position.y \
 				#+ target_house.candy_pickup_area.shape.get_rect().size.y / 1.5)
 			print("{0}'s target house pos: {1}".format([player.costume_name, nav_agent.target_position]))
@@ -129,20 +128,116 @@ func _move(player: Costume, delta: float):
 func _house_out_of_candy(house: House) -> bool:
 	return player_state == State.COLLECTING_CANDY && house.candy_amount <= 0
 
-func go_idle():
-	print("ping!")
+func _go_idle():
+	#print("ping!")
 	player_state = State.IDLE
+	target_player = null
+	
+	#Track the house targeted by CPU
+	if target_house != null:
+		for i in Singleton.house_manager.houses.size():
+			if Singleton.house_manager.houses[i] == target_house:
+				Singleton.targeted_houses[i] = false
+			
+	target_house = null
+	target_candy = null
 
-func set_target_house(house: House):
+func _set_target_house(house: House):
 	target_house = house
 	nav_agent.target_position = Vector2(house.candy_pickup_area.global_position.x, house.candy_pickup_area.global_position.y \
 				+ house.candy_pickup_area.shape.get_rect().size.y / 1.5)
-	target_player = null
+				
+	#Track the house targeted by CPU
+	for i in Singleton.house_manager.houses.size():
+		if Singleton.house_manager.houses[i] == house:
+			Singleton.targeted_houses[i] = true
 
-func set_target_player(player: Costume):
+	target_player = null
+	target_candy = null
+
+func _set_target_player(player: Costume):
 	nav_agent.target_position = player.global_position
+	#Track the house targeted by CPU
+	if target_house != null:
+		for i in Singleton.house_manager.houses.size():
+			if Singleton.house_manager.houses[i] == target_house:
+				Singleton.targeted_houses[i] = false
 	target_house = null
 	target_player = player
- 
+	target_candy = null
+	player_state = State.ATTACKING_PLAYER
+
+func _set_target_candy(candy: Candy):
+	nav_agent.target_position = candy.global_position
+	#Track the house targeted by CPU
+	if target_house != null:
+		for i in Singleton.house_manager.houses.size():
+			if Singleton.house_manager.houses[i] == target_house:
+				Singleton.targeted_houses[i] = false
+	target_house = null
+	target_player = null
+	target_candy = candy
+	player_state = State.PICK_UP_DROPPED_CANDY
+
+#This occurs only when candy is dropped by targeted player.
+func _look_for_dropped_candy(candy_list: Array[Candy]):
+	#if there's less than 5 pieces of candy, don't bother going for them.
+	if candy_list.size() < 5:
+		return
+	
+	var time = Time.get_unix_time_from_system()
+	if time > last_detect_time + detect_rate:
+		#go through the candy list and see if any are in range. We search from the end of the array because
+		#those candies would be the most recent drops
+		last_detect_time = time
+		var i = candy_list.size() - 1
+		var candy_found: bool = false
+		while !candy_found && i >= 0:
+			var distance = player.global_position.distance_to(candy_list[i].global_position)
+			if distance <= player.candy_pickup_range:
+				#player is close, pick up candy
+				_set_target_candy(candy_list[i])
+				candy_found = true
+			else:
+				i -= 1
+		
+
+##Search for nearby players in range. This function must run in _process or _physics_process.
+func _look_for_nearby_players():
+	var time = Time.get_unix_time_from_system()
+	if time > last_detect_time + detect_rate:
+		last_detect_time = time
+		var i = 0
+		var target_found: bool = false
+		while !target_found && i < Singleton.game_manager.players.size():
+			if Singleton.game_manager.players[i] == player:		#don't want to target self
+				i += 1
+				continue
 			
+			if Singleton.game_manager.players[i].candy_amount <= 0:  #don't target players with no candy
+				i += 1
+				continue
+				
+			var distance = player.global_position.distance_to(Singleton.game_manager.players[i].global_position)
+			if distance <= player.detect_range && !player.trick_on_cooldown:
+				#player is close, pursue
+				_set_target_player(Singleton.game_manager.players[i])
+				player_state = State.ATTACKING_PLAYER
+				target_found = true
+			else:
+				i += 1
+ 
+func _check_distance_to_target_player():
+	if target_player == null:
+		return
+	
+	var dist = player.global_position.distance_to(target_player.global_position)
+	if (dist <= player.attack_range && !player.trick_on_cooldown):
+		player.direction_vector = player.global_position.direction_to(target_player.global_position)
+		player.use_trick()
+		
+		#go back to neutral state after a while
+		#await get_tree().create_timer(1.2).timeout
+		_go_idle()
+		#target_player = null			
 	

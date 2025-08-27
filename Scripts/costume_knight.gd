@@ -17,7 +17,7 @@ func _set_default_candy_taken(amount: int):
 	candy_taken = default_candy_taken
 
 func use_trick():
-	if trick_active || trick_on_cooldown:
+	if trick_active || trick_on_cooldown || stunned:
 		return
 	
 	trick_active = true

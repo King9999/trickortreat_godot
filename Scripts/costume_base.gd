@@ -26,8 +26,9 @@ var base_move_speed: float
 @export var direction_vector: Vector2				#tracks which way player is facing.
 
 @export_category("CPU Variables")
-@export var detect_range: float = 200
-@export var attack_range: float = 30
+@export var detect_range: float
+@export var attack_range: float
+@export var candy_pickup_range: float = 50
 
 @export_category("Timers & Booleans")
 var last_invul_time: float             			#timestamp to get current time
@@ -218,7 +219,7 @@ func _set_invincible(player: Costume):
 	last_invul_time = Time.get_unix_time_from_system()
 	while(Time.get_unix_time_from_system() < last_invul_time + invul_duration):
 		sprite.visible = !sprite.visible
-		print("visible: " + str(sprite.visible))
+		#print("visible: " + str(sprite.visible))
 		await get_tree().create_timer(0.08).timeout
 	
 	sprite.visible = true
