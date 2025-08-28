@@ -234,6 +234,9 @@ func _check_distance_to_target_player():
 	var dist = player.global_position.distance_to(target_player.global_position)
 	if (dist <= player.attack_range && !player.trick_on_cooldown):
 		player.direction_vector = player.global_position.direction_to(target_player.global_position)
+		#must round the vector to get the correct direction
+		player.direction_vector = Vector2(roundf(player.direction_vector.x), roundf(player.direction_vector.y))
+		print("Dir. Vector: " + str(player.direction_vector))
 		player.use_trick()
 		
 		#go back to neutral state after a while
