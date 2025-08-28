@@ -42,6 +42,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Singleton.game_manager.game_over:
+		return
+		
 	if candy_being_collected && player_at_house:
 		var time = Time.get_unix_time_from_system()
 		if time > last_candy_pickup_time + CANDY_PICKUP_RATE:

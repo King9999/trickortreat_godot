@@ -34,6 +34,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Singleton.game_manager.game_over:
+		return
+		
 	if player.player_type == Costume.Player.HUMAN:
 		return
 	
@@ -52,6 +55,9 @@ func _process(delta: float) -> void:
 		#pass
 
 func _physics_process(delta: float) -> void:
+	if Singleton.game_manager.game_over:
+		return
+		
 	if player.player_type == Costume.Player.HUMAN:
 		return
 		
@@ -236,7 +242,7 @@ func _check_distance_to_target_player():
 		player.direction_vector = player.global_position.direction_to(target_player.global_position)
 		#must round the vector to get the correct direction
 		player.direction_vector = Vector2(roundf(player.direction_vector.x), roundf(player.direction_vector.y))
-		print("Dir. Vector: " + str(player.direction_vector))
+		print("CPU {0} Dir. Vector: {1}".format([player.costume_name, player.direction_vector]))
 		player.use_trick()
 		
 		#go back to neutral state after a while

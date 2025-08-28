@@ -10,6 +10,7 @@ class_name GameManager
 @onready var camera: Camera2D = $"Game Camera"
 @onready var boundary: Node2D = $"UI Boundary"  #The node standing between game screen and UI. Nothing can pass it.
 @onready var house_manager: HouseManager = $"House Manager"
+@onready var winner_label: RichTextLabel = $"Winner/Winner Label"
 
 #player start positions
 @onready var player_position1: Node2D = $"Player 1 Start Position"
@@ -24,6 +25,7 @@ class_name GameManager
 @export var candy_list: Array[Candy] = []			#location of on screen candy objects
 @export var game_time: int							#time in seconds. default 2 minutes
 var game_started: bool
+var game_over: bool
 
 #costumes
 @export var costume_scenes: Array[PackedScene] = []
@@ -56,17 +58,21 @@ func _ready() -> void:
 	
 	#HUD set up
 	hud.set_up_huds()
+	winner_label.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if !game_started:
 		countdown.start_countdown(true)
-	else:
+	elif !game_over:
 		#check if player used trick
 		if Input.is_action_just_pressed("P1_Trick"):
 			players[Human_Player.PLAYER_ONE].use_trick()
 		if Input.is_action_just_pressed("P2_Trick"):
 			players[Human_Player.PLAYER_TWO].use_trick()
+		
+		#Check if game is over
+		_determine_winner()
 
 #function executes when countdown emits signal
 func _start_game():
@@ -125,7 +131,7 @@ func _set_up_cpu_players():
 
 #reads input from keyboard/controller
 func _physics_process(delta: float) -> void:
-	if game_started:
+	if game_started && !game_over:
 		var input_p1 = Input.get_vector(Singleton.left_p1, Singleton.right_p1, Singleton.up_p1, Singleton.down_p1)
 		var input_p2 = Input.get_vector(Singleton.left_p2, Singleton.right_p2, Singleton.up_p2, Singleton.down_p2)
 		
@@ -165,3 +171,44 @@ func _check_player_boundaries(vector: Vector2) -> Vector2:
 		vector.y = boundary.global_position.y
 	
 	return vector
+
+##Check who won the game when time's up. Also return to costume select. Must execute in _process function
+func _determine_winner():
+	if timer.time > 0:
+		return
+	
+	#game_started = false				#disable further input
+	game_over = true
+	#get the player with the highest amount of candy
+	var winner: Costume = null
+	for i in players.size():
+		if i == 0:
+			winner = players[i]
+		else:
+			if players[i].candy_amount > winner.candy_amount:
+				winner = players[i]
+	
+	#check if there's a draw between the winner and another player
+	var draw_players: Array[Costume] = []
+	for i in players.size():
+		if players[i] == winner:
+			continue
+		
+		if winner.candy_amount == players[i].candy_amount:
+			draw_players.append(players[i])
+	
+	if draw_players.size() > 0:
+		#there's a draw
+		if draw_players.size() >= 3:
+			winner_label.text = "4-WAY DRAW"
+		else:
+			winner_label.text = "DRAW! PLAYER {0}".format([winner.player_num + 1])
+			for i in draw_players.size():
+				winner_label.text += " & PLAYER {0}".format([draw_players[i].player_num + 1])
+	else:
+		#definite winner
+		winner_label.text = "PLAYER {0} WINS!".format([winner.player_num + 1])
+				
+	winner_label.visible = true
+	
+	#TODO: Wait for input from player to restart game
