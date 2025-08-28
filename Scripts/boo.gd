@@ -31,7 +31,7 @@ func _on_body_entered(body: Node2D) -> void:
 			continue
 			 
 		var costume = hit_list[i] as Costume
-		if (costume != null):
+		if (costume != null && (!costume.stunned || !costume.invincible)):
 			#player was hit
 			costume.drop_candy(costume.candy_drop_amount * 2)
 			costume.take_hit()
