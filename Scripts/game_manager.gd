@@ -73,6 +73,12 @@ func _process(delta: float) -> void:
 		
 		#Check if game is over
 		_determine_winner()
+	else:
+		#Game's over. Wait for input from player to restart game
+		if Input.is_action_just_pressed("P1_Trick") || Input.is_action_just_pressed("P2_Trick"):
+			#switch scene
+			await get_tree().create_timer(0.8).timeout
+			get_tree().change_scene_to_file(Singleton.costume_select_scene)
 
 #function executes when countdown emits signal
 func _start_game():
@@ -208,7 +214,6 @@ func _determine_winner():
 	else:
 		#definite winner
 		winner_label.text = "PLAYER {0} WINS!".format([winner.player_num + 1])
-				
-	winner_label.visible = true
 	
-	#TODO: Wait for input from player to restart game
+	winner_label.text += "\n\nPress the Trick button to restart"			
+	winner_label.visible = true

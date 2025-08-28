@@ -34,7 +34,7 @@ base_font = ExtResource("13_k12tt")
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fdnlq")
 candy_scene = ExtResource("2_b3802")
-game_time = 5
+game_time = 120
 costume_scenes = Array[PackedScene]([ExtResource("6_6bp64"), ExtResource("5_kry3j"), ExtResource("7_344ge"), ExtResource("8_ynf5e")])
 
 [node name="Level" type="Sprite2D" parent="."]
@@ -194,16 +194,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -392.0
+offset_left = -448.0
 offset_top = -232.0
-offset_right = 424.0
-offset_bottom = 40.0
+offset_right = 464.0
+offset_bottom = 288.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 20
 theme_override_fonts/normal_font = SubResource("FontVariation_d1ilt")
-theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/normal_font_size = 72
 text = "PLAYER 1 WINS!"
 scroll_active = false
 horizontal_alignment = 1

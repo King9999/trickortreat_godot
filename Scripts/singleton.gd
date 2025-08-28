@@ -23,6 +23,7 @@ var rand_cpu_costume: Selection		#Used when 1 CPU opponent is chosen
 var cpu_costumes: Array[Singleton.Selection] = []
 
 #scene names for easy reference
+var costume_select_scene: String = "res://Scenes/costume_select_screen.tscn"
 var cpu_select_scene: String = "res://Scenes/cpu_select.tscn"
 var main_game_scene: String = "res://Scenes/main.tscn"
 var house_manager: HouseManager
